@@ -1,7 +1,6 @@
-package com.qlp.july.cms.entity;
+package com.qlp.cms.entity.base;
 
-import com.qlp.july.core.entity.IdEntity;
-import com.qlp.july.enums.StatusEnum;
+import com.qlp.core.entity.IdEntity;
 
 /**
  * 站点实体(T_CMS_SITE)
@@ -16,7 +15,7 @@ public class Site extends IdEntity {
 	
 	private String num;				//站点编号
 	
-	private StatusEnum status;		//站点状态
+	private Integer status;			//站点状态
 	
 	private String path;			//站点访问路径
 	
@@ -40,11 +39,11 @@ public class Site extends IdEntity {
 		this.num = num;
 	}
 
-	public StatusEnum getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusEnum status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

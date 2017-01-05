@@ -1,4 +1,4 @@
-package com.qlp.july.cms.controller;
+package com.qlp.cms.controller.base;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.qlp.july.cms.entity.Site;
-import com.qlp.july.cms.service.SiteService;
-import com.qlp.july.core.annotation.PageRequestParam;
+import com.qlp.cms.entity.base.Site;
+import com.qlp.cms.service.base.SiteService;
+import com.qlp.core.annotation.PageRequestParam;
+import com.qlp.core.page.Page;
+import com.qlp.core.page.Pageable;
 
 /**
  * 站点管理controller
@@ -29,11 +31,14 @@ public class SiteController {
 	 * @param site
 	 * @return
 	 */
+	@SuppressWarnings({"unchecked" })
 	@PageRequestParam
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request,@ModelAttribute Site site){
-		
+		Pageable<Site> pageable =  (Pageable<Site>) request.getAttribute("pageable");
+		Page<Site> pageInfo = siteService.queryPage(pageable);
 		request.setAttribute("site", site);
+		request.setAttribute("pageInfo", pageInfo);
 		return "/cms/site/list";
 	}
 

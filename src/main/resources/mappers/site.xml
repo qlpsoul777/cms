@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.base.SiteDao">
+	<sql id="siteColumn">
+		<![CDATA[
+		    ID id,
+		    create_time createTime,
+		    update_time updateTime,
+		    create_by createBy,
+		    update_by updateBy,
+		    SITE_NAME name,
+		    SITE_NO num,
+		    SITE_PATH path,
+		    SITE_STATUS status,
+		    INTRODUCTION introduction,
+		    IMG_PATH imgPath
+        ]]>
+	</sql>
+	
+	<!-- 根据用户id查询用户信息 -->
+	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="site">
+		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE
+	</select>
+	
+	
+	
+</mapper>

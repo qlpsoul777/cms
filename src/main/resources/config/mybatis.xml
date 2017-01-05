@@ -3,16 +3,20 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<typeAliases>
+		<typeAlias type="site" alias="com.qlp.cms.entity.base.Site"></typeAlias>
+	</typeAliases>
+	
 	<!-- 注册typeHandler, 映射数据库中的字段 -->
 	<!-- <typeHandlers>
 		
 	</typeHandlers>
-	
+	 -->
 	
 	<plugins>
-		<plugin interceptor="com.qlp.core.page.PageInterceptor">
+		<plugin interceptor="com.qlp.core.interceptor.mybatis.PageInterceptor">
 			<property name="dataBaseType" value="mysql"/>
 		</plugin>
-	</plugins> -->
+	</plugins>
 
 </configuration>

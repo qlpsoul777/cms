@@ -1,4 +1,4 @@
-package com.qlp.july.cache;
+package com.qlp.cms.cache;
 
 /**
  * 全局缓存，系统启动时初始化其属性的值

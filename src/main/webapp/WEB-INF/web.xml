@@ -72,7 +72,7 @@
 	</listener>
 	<!-- 全局缓存初始化入口 -->
 	<listener>
-		<listener-class>com.qlp.listener.StartupInitializer</listener-class>
+		<listener-class>com.qlp.cms.listener.StartupInitializer</listener-class>
 	</listener>
 
 	<!-- Spring MVC Servlet -->

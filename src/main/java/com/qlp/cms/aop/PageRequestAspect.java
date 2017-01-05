@@ -1,6 +1,6 @@
-package com.qlp.july.cms.aop;
+package com.qlp.cms.aop;
 
-import java.awt.print.Pageable;
+
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.qlp.july.core.annotation.PageRequestParam;
-import com.qlp.july.core.page.PageRequest;
-import com.qlp.july.core.util.DataConvertUtil;
-import com.qlp.july.core.util.LogUtil;
+import com.qlp.core.annotation.PageRequestParam;
+import com.qlp.core.page.PageRequest;
+import com.qlp.core.page.Pageable;
+import com.qlp.core.util.DataConvertUtil;
+import com.qlp.core.util.LogUtil;
 
 @Aspect
 @Component
@@ -25,15 +26,16 @@ public class PageRequestAspect {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PageRequestAspect.class);
 	
-	@Pointcut("execution(public com...*Controller.list(..))")
-	public void pointCut(){}
+	@Pointcut("execution(public * com.qlp.cms.controller.*..*Controller.list(..))")
+	public void pageCovert(){}
 	
-	@Before(value = "pointCut() && @annotation(annotation) &&args(object,..)",argNames="annotation,object")
+	@Before(value = "pageCovert() && @annotation(annotation) &&args(object,..)",argNames="annotation,object")
 	public void covertToPageable(JoinPoint pj, PageRequestParam annotation, Object object) throws Throwable{
 		long start = System.currentTimeMillis();
 		
 		Object[] o = pj.getArgs();
 		HttpServletRequest request = (HttpServletRequest) o[0];
+		Object obj = o[1];
 		Enumeration<String> params = request.getAttributeNames();
 		String key;
 		Object value;
@@ -48,7 +50,8 @@ public class PageRequestAspect {
 			}
 			
 		}
-		Pageable pageable = (Pageable) new PageRequest(pageSize, currentPage);
+		
+		Pageable<?> pageable = new PageRequest<>(pageSize,currentPage,obj);
 		
 		request.setAttribute(annotation.name(), pageable);
 		
