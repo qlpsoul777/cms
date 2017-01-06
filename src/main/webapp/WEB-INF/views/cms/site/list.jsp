@@ -19,9 +19,9 @@
 						<a href="${ctx }/site/edit" class="btn btn-primary">新增</a>
 						<a id="batchDel" class="btn btn-danger">删除</a>
 						<form id="queryForm" class="form-horizontal" action="${ctx }/site/list">
-							<input id="totalSize" type="hidden" name="totalSize" value="${pageInfo.totalPages }"/>
-		  					<input id="pageSize" type="hidden" name="pageSize" value="${pageInfo.size }"/>
-		  					<input id="currentPage" type="hidden" name="currentPage" value="${pageInfo.number }"/>
+							<input id="totalSize" type="hidden" name="totalSize" value="${pageInfo.totalPage}"/>
+		  					<input id="pageSize" type="hidden" name="pageSize" value="${pageInfo.pageSize }"/>
+		  					<input id="currentPage" type="hidden" name="currentPage" value="${pageInfo.currentPage}"/>
 		  					<div class="form-group">
 							    <label for="name" class="col-sm-2 control-label">站点中文名</label>
 							    <div class="col-sm-10">
@@ -62,7 +62,7 @@
 						        			<td>${site.name }</td>
 						        			<td>${site.num }</td>
 						        			<td>${site.path }</td>
-						        			<td>${site.status.desc }</td>
+						        			<td>${site.status}</td>
 						        			<td>${site.createBy }</td>
 						        			<td>
 						        				<a href="${ctx }/site/edit?id=${site.id}">编辑</a>

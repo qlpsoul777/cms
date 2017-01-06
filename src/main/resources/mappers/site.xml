@@ -5,10 +5,10 @@
 	<sql id="siteColumn">
 		<![CDATA[
 		    ID id,
-		    create_time createTime,
-		    update_time updateTime,
-		    create_by createBy,
-		    update_by updateBy,
+		    CREATE_TIME createTime,
+		    UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
 		    SITE_NAME name,
 		    SITE_NO num,
 		    SITE_PATH path,
@@ -19,8 +19,16 @@
 	</sql>
 	
 	<!-- 根据用户id查询用户信息 -->
-	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="site">
-		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE
+	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Site">
+		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t
+		<where>
+			<if test="params.name != null and params.name != '' ">
+		         t.SITE_NAME LIKE '%' || #{params.name,jdbcType=VARCHAR} || '%'
+		    </if>
+		    <if test="params.num != null and params.num != '' ">
+		         t.SITE_NO = #{params.num,jdbcType=VARCHAR}
+		    </if>
+		</where>
 	</select>
 	
 	

@@ -4,7 +4,7 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="site" alias="com.qlp.cms.entity.base.Site"></typeAlias>
+		<typeAlias type="com.qlp.cms.entity.base.Site" alias="Site"></typeAlias>
 	</typeAliases>
 	
 	<!-- 注册typeHandler, 映射数据库中的字段 -->
