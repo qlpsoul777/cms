@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<!--别名管理-->
 	<typeAliases>
 		<typeAlias type="com.qlp.cms.entity.base.Site" alias="Site"></typeAlias>
 	</typeAliases>
@@ -14,9 +15,11 @@
 	 -->
 	
 	<plugins>
+		<!--分页插件-->
 		<plugin interceptor="com.qlp.core.interceptor.mybatis.PageInterceptor">
 			<property name="dataBaseType" value="mysql"/>
 		</plugin>
+
 	</plugins>
 
 </configuration>

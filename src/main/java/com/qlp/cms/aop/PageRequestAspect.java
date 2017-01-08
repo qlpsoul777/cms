@@ -1,10 +1,14 @@
 package com.qlp.cms.aop;
 
 
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.qlp.core.annotation.PageRequestParam;
+import com.qlp.core.page.PageRequest;
+import com.qlp.core.page.Pageable;
+import com.qlp.core.page.Sort;
+import com.qlp.core.util.CollectionUtil;
+import com.qlp.core.util.DataConvertUtil;
+import com.qlp.core.util.LogUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,12 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.qlp.core.annotation.PageRequestParam;
-import com.qlp.core.page.PageRequest;
-import com.qlp.core.page.Pageable;
-import com.qlp.core.page.Sort;
-import com.qlp.core.util.DataConvertUtil;
-import com.qlp.core.util.LogUtil;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分页查询参数转换切面，拦截controller中的分页请求方法，将请求参数转化成Pageable<T>
@@ -36,7 +37,7 @@ public class PageRequestAspect {
 	@Pointcut("execution(public * com.qlp.cms.controller.*..*Controller.list(..))")
 	public void pageCovert(){}
 	
-	@Before(value = "pageCovert() && @annotation(annotation) &&args(object,..)",argNames="annotation,object")
+	@Before(value = "pageCovert() && @annotation(annotation) && args(object,..)")
 	public void covertToPageable(JoinPoint pj, PageRequestParam annotation, Object object) throws Throwable{
 		long start = System.currentTimeMillis();
 		
@@ -48,18 +49,23 @@ public class PageRequestAspect {
 		
 		Sort sort = null;
 		if(annotation.isSort()){
-			Enumeration<String> params = request.getAttributeNames();
-			String key;
-			Object value;
-			
-			while(params.hasMoreElements()){
-				key = params.nextElement();
-				if(key.endsWith("_sort")){
-					
-					value = request.getParameter(key);
-					
+			List<Sort.Order> orders = new ArrayList<>(4);
+
+			String[] asc = StringUtils.split(request.getParameter("_ASC"),',');
+			if(CollectionUtil.isNotBlank(asc)){
+				for(String pro: asc){
+					orders.add(new Sort.Order(Sort.Direction.ASC,pro));
 				}
 			}
+
+			String[] desc = StringUtils.split(request.getParameter("_DESC"),',');
+			if(CollectionUtil.isNotBlank(desc)){
+				for(String pro: desc){
+					orders.add(new Sort.Order(Sort.Direction.DESC,pro));
+				}
+			}
+
+			sort = new Sort(orders);
 		}
 		
 		Pageable<?> pageable = new PageRequest<>(pageSize,currentPage,sort,o[1]);

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.base.SiteDao">
+	<sql id="siteColumn">
+		<![CDATA[
+		    ID id,
+		    CREATE_TIME createTime,
+		    UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
+		    SITE_NAME name,
+		    SITE_NO num,
+		    SITE_PATH path,
+		    SITE_STATUS status,
+		    INTRODUCTION introduction,
+		    IMG_PATH imgPath
+        ]]>
+	</sql>
+
+	<!--新增站点-->
+	<insert id="saveSite" parameterType="Site" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO T_CMS_SITE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			CREATE_TIME,UPDATE_TIME
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
+			<if test="name != null and name != ''">
+				SITE_NAME,
+			</if>
+			<if test="num != null and num != ''">
+				SITE_NO,
+			</if>
+			<if test="path != null and path != ''">
+				SITE_PATH,
+			</if>
+			<if test="status != null">
+				SITE_STATUS,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				INTRODUCTION,
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			NOW(),NOW(),
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null and num != ''">
+				#{num,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				#{path,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=NUMERIC},
+			</if>
+			<if test="introduction != null and introduction != ''">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				#{imgPath,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteSite" parameterType="java.lang.Long">
+		DELETE FROM T_CMS_SITE
+	</delete>
+
+	<update id="updateSite" parameterType="Site">
+		UPDATE T_CMS_SITE
+		<set>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				SITE_NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null and num != ''">
+				SITE_NO = #{num,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				SITE_PATH = #{path,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				SITE_STATUS = #{status,jdbcType=NUMERIC},
+			</if>
+			<if test="introduction != null and introduction != ''">
+				INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH = #{imgPath,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 根据用户id查询用户信息 -->
+	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Site">
+		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t
+		<where>
+			<if test="params.name != null and params.name != '' ">
+		         t.SITE_NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
+		    </if>
+		    <if test="params.num != null and params.num != '' ">
+		         t.SITE_NO = #{params.num,jdbcType=VARCHAR}
+		    </if>
+		</where>
+	</select>
+	
+	
+	
+</mapper>
