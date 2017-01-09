@@ -41,6 +41,11 @@
 	    <property name="poolPreparedStatements" value="${dbcp.poolPreparedStatements}" />  
 	    <property name="maxPoolPreparedStatementPerConnectionSize" value="${dbcp.maxPoolPreparedStatementPerConnectionSize}" />  
 	    
+	    <property name="proxyFilters">
+			<list>
+				<ref bean="statFilter" />
+			</list>
+		</property>
 	    <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->  
     	<property name="filters" value="stat" />   
 	</bean>

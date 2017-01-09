@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+	<!-- 代码生成器 -->
+    <bean id="generatorCode" class="com.qlp.core.generator.Generator" init-method="init">   
+	     <property name="srcPath" value="F:\july\myWorkSpace\cms\src\main\java\com\qlp\cms"></property>
+	     <property name="rootPath" value="com.qlp.cms"></property>
+	     <property name="entitys">
+	     	<list>
+	     		<value></value>
+	     	</list>
+	     </property>
+	</bean>
+
+</beans>

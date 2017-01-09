@@ -19,10 +19,15 @@
 	</sql>
 
 	<!--新增站点-->
-	<insert id="saveSite" parameterType="Site" keyProperty="id" useGeneratedKeys="true">
+	<insert id="saveSite" parameterType="Site">
+		<selectKey order="BEFORE" resultType="java.lang.Long" keyProperty="siteId">
+			SELECT SEQ_T_CMS_SITE.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO T_CMS_SITE
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			CREATE_TIME,UPDATE_TIME,
+			ID,
+			CREATE_TIME,
+			UPDATE_TIME,
 			<if test="createBy != null and createBy != ''">
 				CREATE_BY,
 			</if>
@@ -49,7 +54,9 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			NOW(),NOW(),
+			#{siteId,jdbcType=NUMERIC},
+			SYSDATE,
+			SYSDATE,
 			<if test="createBy != null and createBy != ''">
 				#{createBy,jdbcType=VARCHAR},
 			</if>
@@ -77,17 +84,15 @@
 		</trim>
 	</insert>
 
-	<!-- 删除站点 -->
-	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM T_CMS_SITE WHERE ID = #{id,jdbcType=NUMERIC}
+	<delete id="deleteSite" parameterType="java.lang.Long">
+		DELETE FROM T_CMS_SITE
 	</delete>
 
-	<!-- 修改站点信息 -->
 	<update id="updateSite" parameterType="Site">
 		UPDATE T_CMS_SITE
 		<set>
 			<if test="updateTime != null">
-				UPDATE_TIME = NOW(),
+				UPDATE_TIME = SYSDATE,
 			</if>
 			<if test="createBy != null and createBy != ''">
 				CREATE_BY = #{createBy,jdbcType=VARCHAR},
@@ -114,15 +119,15 @@
 				IMG_PATH = #{imgPath,jdbcType=VARCHAR},
 			</if>
 		</set>
-		WHERE ID = #{id,jdbcType=NUMERIC}
+		WHERE ID = #{id,,jdbcType=NUMERIC}
 	</update>
 	
-	<!-- 根据分页条件分页查询用户信息 -->
+	<!-- 根据用户id查询用户信息 -->
 	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Site">
 		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t
 		<where>
 			<if test="params.name != null and params.name != '' ">
-		         t.SITE_NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
+		         t.SITE_NAME LIKE '%' || #{params.name,jdbcType=VARCHAR} || '%'
 		    </if>
 		    <if test="params.num != null and params.num != '' ">
 		         t.SITE_NO = #{params.num,jdbcType=VARCHAR}
@@ -130,8 +135,6 @@
 		</where>
 	</select>
 	
-	<!-- 根据用户id查询用户信息 -->
-	<select id="queryById" parameterType="java.lang.Long" resultType="Site">
-		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t WHERE t.ID = #{id,jdbcType=NUMERIC}
-	</select>
+	
+	
 </mapper>

@@ -22,7 +22,7 @@
 							<input id="totalSize" type="hidden" name="totalSize" value="${pageInfo.totalPage}"/>
 		  					<input id="pageSize" type="hidden" name="pageSize" value="${pageInfo.pageSize }"/>
 		  					<input id="currentPage" type="hidden" name="currentPage" value="${pageInfo.currentPage}"/>
-		  					<input id="_ASC" name="_ASC" value="creatTime"/>
+		  					<input id="_ASC" type="hidden" name="_ASC" value="creatTime"/>
 							<div class="form-group">
 							    <label for="name" class="col-sm-2 control-label">站点中文名</label>
 							    <div class="col-sm-10">
