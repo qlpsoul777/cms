@@ -5,14 +5,39 @@
                         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 	
 	<!-- 代码生成器 -->
-    <bean id="generatorCode" class="com.qlp.core.generator.Generator" init-method="init">   
+    <bean id="generator" class="com.qlp.core.generator.Generator">   
+	     <!-- 是否生成代码文件 -->
+	     <property name="isCreate" value="true"></property>
+	     <!-- 是否生成sql(mapper.xml)文件 -->
+	     <property name="isCreateSql" value="false"></property>
+	     <!-- 是否生成jsp文件 -->
+	     <property name="isCreateJsp" value="false"></property>
+	     
+	     <!-- 工程源代码绝对根路径 -->
 	     <property name="srcPath" value="F:\july\myWorkSpace\cms\src\main\java\com\qlp\cms"></property>
+	     <!-- 工程包路径 -->
 	     <property name="rootPath" value="com.qlp.cms"></property>
+	     <!-- 实体所在父路径 -->
+	     <property name="parentPath" value="base"></property>
+	     <!-- sql配置文件存放路径 -->
+	     <property name="sqlPath" value="F:\july\myWorkSpace\cms\src\main\resources\mappers\mysql"></property>
+	     <!-- jsp文件存放路径 -->
+	     <property name="jspPath" value="F:\july\myWorkSpace\cms\src\main\webapp\WEB-INF\views\cms"></property>
+	     
+	     <!-- 实体名 -->
 	     <property name="entitys">
 	     	<list>
-	     		<value></value>
+	     		<value>Site</value>
+	     		<value>Template</value>
+	     		<value>Catalog</value>
+	     		<value>Content</value>
 	     	</list>
 	     </property>
+	     
+	     
 	</bean>
-
+	
+	<bean id="generatorHelper" class="com.qlp.core.generator.GeneratorHelper" init-method="init">
+		<property name="generator" ref="generator"></property>
+	</bean>
 </beans>
