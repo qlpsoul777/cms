@@ -9,10 +9,10 @@
 	</typeAliases>
 	
 	<!-- 注册typeHandler, 映射数据库中的字段 -->
-	<!-- <typeHandlers>
-		
+	<typeHandlers>
+		<typeHandler handler="com.qlp.core.converter.mybatis.MyEnumCodeTypeHandler" javaType="com.qlp.core.enums.StatusEnum" jdbcType="NUMERIC"/>
 	</typeHandlers>
-	 -->
+	
 	
 	<plugins>
 		<!--分页插件-->

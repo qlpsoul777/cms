@@ -27,10 +27,10 @@
 	     <!-- 实体名 -->
 	     <property name="entitys">
 	     	<list>
-	     		<value>Site</value>
-	     		<value>Template</value>
 	     		<value>Catalog</value>
-	     		<value>Content</value>
+	     		<!-- <value>Site</value>
+	     		<value>Template</value>
+	     		<value>Content</value> -->
 	     	</list>
 	     </property>
 	     
