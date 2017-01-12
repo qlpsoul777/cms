@@ -16,4 +16,6 @@ public interface SiteDao {
 	List<Site> queryPageList(Pageable<Site> pageable);
 
 	Site queryById(Long id);
+
+	void deleteByIdIn(Long[] id);
 }

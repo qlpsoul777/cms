@@ -3,7 +3,7 @@ package com.qlp.cms.entity.base;
 import java.util.List;
 
 import com.qlp.core.entity.IdEntity;
-import com.qlp.core.enums.StatusEnum;
+import com.qlp.core.enums.ContentTypeEnum;
 
 public class Catalog extends IdEntity{
 
@@ -13,15 +13,13 @@ public class Catalog extends IdEntity{
 	
 	private String alias;				//栏目别名
 	
-	private StatusEnum status;			//栏目状态
+	private Integer status;				//栏目状态
 	
 	private String introduction;		//栏目描述
 	
 	private String path;				//访问路径
 	
-	private String contentType;			//内容类型
-	
-	private Integer isLeaf;				//是否是叶子结点
+	private ContentTypeEnum contentType;//内容类型
 	
 	private Integer sort;				//排序字段
 	
@@ -32,5 +30,93 @@ public class Catalog extends IdEntity{
 	private Long pId;					//父级栏目
 	
 	private List<Catalog> children;		//子栏目
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public ContentTypeEnum getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(ContentTypeEnum contentType) {
+		this.contentType = contentType;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public Long getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(Long siteId) {
+		this.siteId = siteId;
+	}
+
+	public Long getpId() {
+		return pId;
+	}
+
+	public void setpId(Long pId) {
+		this.pId = pId;
+	}
+
+	public List<Catalog> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Catalog> children) {
+		this.children = children;
+	}
 
 }

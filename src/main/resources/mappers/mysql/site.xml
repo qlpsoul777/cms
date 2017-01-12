@@ -81,6 +81,13 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		DELETE FROM T_CMS_SITE WHERE ID = #{id,jdbcType=NUMERIC}
 	</delete>
+	<!-- 批量删除 -->
+	<delete id="deleteByIdIn" parameterType="java.lang.Long">
+		DELETE FROM T_CMS_SITE WHERE ID IN
+		<foreach item="id" collection="array" open="(" close=")" separator=",">
+            #{id,jdbcType=NUMERIC}
+        </foreach>
+	</delete>
 
 	<!-- 修改站点信息 -->
 	<update id="updateSite" parameterType="Site">

@@ -4,14 +4,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qlp.cms.dao.base.CatalogDao;
 import com.qlp.cms.entity.base.Catalog;
-
+import com.qlp.cms.entity.base.Site;
 import com.qlp.core.page.Page;
 import com.qlp.core.page.PageImpl;
 import com.qlp.core.page.Pageable;
@@ -52,6 +51,11 @@ public class CatalogService {
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		catalogDao.deleteById(id);
+	}
+
+	public List<Catalog> queryCatalogTree(Site site) {
+		
+		return null;
 	}
 
 }

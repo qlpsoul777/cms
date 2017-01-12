@@ -7,7 +7,7 @@
 	<!-- 代码生成器 -->
     <bean id="generator" class="com.qlp.core.generator.Generator">   
 	     <!-- 是否生成代码文件 -->
-	     <property name="isCreate" value="true"></property>
+	     <property name="isCreate" value="false"></property>
 	     <!-- 是否生成sql(mapper.xml)文件 -->
 	     <property name="isCreateSql" value="false"></property>
 	     <!-- 是否生成jsp文件 -->
