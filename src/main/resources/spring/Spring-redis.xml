@@ -15,16 +15,16 @@
 	
 	<!-- Jedis pool config -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
-        <property name="maxTotal" value="10"></property>  
-        <property name="maxIdle" value="10"></property>  
-        <property name="minIdle" value="2"></property>  
-        <property name="maxWaitMillis" value="15000"></property>  
-        <property name="minEvictableIdleTimeMillis" value="300000"></property>  
-        <property name="numTestsPerEvictionRun" value="3"></property>  
-        <property name="timeBetweenEvictionRunsMillis" value="60000"></property>  
-        <property name="testOnBorrow" value="true"></property>  
-        <property name="testOnReturn" value="true"></property>  
-        <property name="testWhileIdle" value="true"></property>  
+        <property name="maxTotal" value="${redis.maxTotal}"></property>  
+        <property name="maxIdle" value="${redis.maxIdle}"></property>  
+        <property name="minIdle" value="${redis.minIdle}"></property>  
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"></property>  
+        <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}"></property>  
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}"></property>  
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}"></property>  
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"></property>  
+        <property name="testOnReturn" value="${redis.testOnReturn}"></property>  
+        <property name="testWhileIdle" value="${redis.testWhileIdle}"></property>  
     </bean>
 
 	<!-- redis template definition -->

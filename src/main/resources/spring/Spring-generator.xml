@@ -7,7 +7,7 @@
 	<!-- 代码生成器 -->
     <bean id="generator" class="com.qlp.core.generator.Generator">   
 	     <!-- 是否生成代码文件 -->
-	     <property name="isCreate" value="false"></property>
+	     <property name="isCreate" value="true"></property>
 	     <!-- 是否生成sql(mapper.xml)文件 -->
 	     <property name="isCreateSql" value="false"></property>
 	     <!-- 是否生成jsp文件 -->
@@ -18,7 +18,7 @@
 	     <!-- 工程包路径 -->
 	     <property name="rootPath" value="com.qlp.cms"></property>
 	     <!-- 实体所在父路径 -->
-	     <property name="parentPath" value="base"></property>
+	     <property name="parentPath" value="permission"></property>
 	     <!-- sql配置文件存放路径 -->
 	     <property name="sqlPath" value="F:\july\myWorkSpace\cms\src\main\resources\mappers\mysql"></property>
 	     <!-- jsp文件存放路径 -->
@@ -27,7 +27,7 @@
 	     <!-- 实体名 -->
 	     <property name="entitys">
 	     	<list>
-	     		<value>Catalog</value>
+	     		<value>User</value>
 	     		<!-- <value>Site</value>
 	     		<value>Template</value>
 	     		<value>Content</value> -->
