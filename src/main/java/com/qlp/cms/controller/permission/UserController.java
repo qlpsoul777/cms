@@ -2,16 +2,17 @@ package com.qlp.cms.controller.permission;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qlp.cms.entity.permission.User;
 import com.qlp.cms.service.permission.UserService;
-
 import com.qlp.core.annotation.PageRequestParam;
 import com.qlp.core.page.Page;
 import com.qlp.core.page.Pageable;
@@ -22,6 +23,17 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(HttpServletRequest request){
+		String captchaCode = StringUtils.trim(request.getParameter("captchaCode"));
+		String sessionCaptchaCode = (String) request.getSession().getAttribute("captchaCode");
+		request.getSession().removeAttribute("captchaCode");
+		if(!StringUtils.equals(captchaCode, sessionCaptchaCode)) {
+			request.setAttribute("sellUserChecked", "验证码错误");
+		}
+		return "/index";
+	}
 	
 	@SuppressWarnings({"unchecked" })
 	@PageRequestParam

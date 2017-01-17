@@ -27,15 +27,16 @@
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="shiroDatabaseRealm" />
-        <property name="cacheManager" ref="shiroEhcacheManager" />
+        <property name="cacheManager" ref="redisCacheManager" />
     </bean>
 
     <bean id="shiroDatabaseRealm" class="com.qlp.sys.service.impl.CustomRealm" depends-on="userDao,roleDao,moduleDao">
         <property name="credentialsMatcher" ref="passwordMatcher"></property>
     </bean>
 
-    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml"/>
+    <bean id="redisCacheManager" class="com.qlp.core.cache.RedisCacheManager">
+    	<property name="keyPrefix" value="shiro_redis_cache:"></property>
+    	<property name="redisTemplate" ref="redisTemplate"></property>
     </bean>
 
     <bean id="passwordMatcher" class="com.qlp.sys.service.impl.RetryPasswordCount" init-method="init">

@@ -33,8 +33,8 @@
 				<div class="col-sm-10">
 					<input type="hidden" name="token">
 					<input type="text" class="form-control" id="captchaCode" name="captchaCode"/>
-					<img src="${ctx }/captcha.jpg"/>
-					<span>看不清，<a>换一张</a></span>
+					<img id="codeImg" src="${ctx }/captcha.jpg"/>
+					<span>看不清，<a id="changeImg">换一张</a></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -49,7 +49,11 @@
 <script src="${ctx}/static/js/jquery-1.11.1.min.js"></script>
 <script src="${ctx}/static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+	$(function(){
+		$('#changeImg').on('click',function(){
+			$("#codeImg").attr("src",'${ctx }/captcha.jpg?'+new Date().getTime());
+		});
+	});
 </script>
 </body>
 </html>

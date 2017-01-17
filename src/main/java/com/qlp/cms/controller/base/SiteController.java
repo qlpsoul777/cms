@@ -40,7 +40,7 @@ public class SiteController {
 	 * @return
 	 */
 	@SuppressWarnings({"unchecked" })
-	@PageRequestParam(isSort = true)
+	@PageRequestParam
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request,@ModelAttribute Site site){
 		Pageable<Site> pageable =  (Pageable<Site>) request.getAttribute("pageable");
