@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.permission.UserDao">
+	<sql id="userColumn">
+		<![CDATA[
+		    ID id,
+		    CREATE_TIME createTime,
+		    UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
+		    LOGIN_NAME loginName,
+		    PASSWORD password,
+		    NAME name,
+		    EMAIL email,
+		    PHONE_NUM phoneNum,
+		    ADDRESS address,
+		    IMG_PATH imgPath,
+		    SALT salt,
+		    STATUS status,
+		    SEX sex,
+		    LOCK_TIME lockTime
+        ]]>
+	</sql>
+	<select id="findByLoginName" parameterType="java.lang.String" resultType="User">
+		SELECT ID id,LOGIN_NAME loginName,PASSWORD password,SALT salt,STATUS status
+		FROM T_PERMISSION_USER WHERE LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+	</select>
+</mapper>

@@ -14,9 +14,6 @@
     <description> Spring公共配置</description>
     
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-   <!--  <context:component-scan base-package="com.qlp.cms">
-		
-	</context:component-scan> -->
     <context:component-scan base-package="com.qlp.cms">
         <context:exclude-filter type="annotation" 
         	expression="org.springframework.stereotype.Controller"/>
@@ -27,11 +24,6 @@
 	
 	<!-- 通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	
-	<context:annotation-config/>
-	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-		<property name="maxInactiveIntervalInSeconds" value="600"></property>
-	</bean>
    	
    	<!-- 定义不同环境的配置文件 -->
    	<beans profile="development">

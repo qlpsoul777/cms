@@ -3,7 +3,6 @@ package com.qlp.cms.dao.permission;
 import java.util.List;
 
 import com.qlp.cms.entity.permission.User;
-
 import com.qlp.core.page.Pageable;
 
 public interface UserDao {
@@ -17,4 +16,6 @@ public interface UserDao {
 	List<User> queryPageList(Pageable<User> pageable);
 
 	User queryById(Long id);
+
+	User findByLoginName(String loginName);
 }
