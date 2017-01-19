@@ -25,39 +25,6 @@ public class UserService {
 	@Autowired
 	private UserDao userDao; 
 	
-	public Page<User> queryPage(Pageable<User> pageable) {
-		List<User> list = userDao.queryPageList(pageable);
-		Page<User> page = new PageImpl<>(list, pageable);
-		return page;
-	}
-	
-	public User queryById(Long id){
-		User user = userDao.queryById(id);
-		return user;
-	}
-
-	public User newIfNotFound(Long id) {
-		if(id == null){
-			return new User();
-		}
-		return queryById(id);
-	}
-
-	@Transactional(readOnly = false)
-	public void save(User user) {
-		userDao.saveUser(user);
-	}
-
-	@Transactional(readOnly = false)
-	public void deleteById(Long id) {
-		userDao.deleteById(id);
-	}
-
-	public Set<String> findRolesByLoginName(String loginName) {
-		
-		return null;
-	}
-
 	public User findByLoginName(String loginName) {
 		
 		return userDao.findByLoginName(loginName);

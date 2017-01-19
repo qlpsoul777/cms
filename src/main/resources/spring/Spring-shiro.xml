@@ -8,10 +8,10 @@
        
 	<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
 	<!-- the lifecycleBeanProcessor has run: -->
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+	<!-- <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
 	    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 	    <property name="securityManager" ref="securityManager"/>
-	</bean>
+	</bean> -->
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
@@ -19,15 +19,17 @@
         <property name="successUrl" value="/index"></property>
         <property name="filters">
             <util:map>
+            	<entry key="captchaValidate" value-ref="captchaValidateFilter"/>
                 <entry key="authc" value-ref="authcFilter"/>
             </util:map>
         </property>
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
-                /jcaptcha* = anon
-                /login = authc
+                /captcha* = anon
+                /user/login = captchaValidate,authc
                 /logout = logout
+                /** = user
             </value>
         </property>
     </bean>
@@ -41,7 +43,7 @@
         <property name="credentialsMatcher" ref="passwordMatcher"></property>
     </bean>
     
-    <bean id="passwordMatcher" class="com.qlp.cms.service.permission.RetryPasswordCount" init-method="init">
+    <bean id="passwordMatcher" class="com.qlp.cms.service.permission.RetryPasswordCount">
         <property name="limit" value="5"></property>
         <property name="hashAlgorithmName" value="SHA-256"></property>
         <property name="storedCredentialsHexEncoded" value="true"/>
@@ -52,10 +54,16 @@
     	<property name="redisTemplate" ref="redisTemplate"></property>
     </bean>
 
-    <bean id="authcFilter" class="com.qlp.sys.service.impl.MyFormAuthenticationFilter">
-        <property name="usernameParam" value="username"/>
+    <bean id="authcFilter" class="com.qlp.cms.filter.MyFormAuthenticationFilter">
+        <property name="usernameParam" value="loginName"/>
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
+        <property name="failureKeyAttribute" value="shiroLoginFailure"/>
+    </bean>
+    
+    <bean id="captchaValidateFilter" class="com.qlp.cms.filter.CaptchaValidateFilter">
+        <property name="captchaEbabled" value="true"/>
+        <property name="captchaCodeKey" value="captchaCode"/>
         <property name="failureKeyAttribute" value="shiroLoginFailure"/>
     </bean>
 
