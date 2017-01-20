@@ -93,12 +93,7 @@
 	<update id="updateSite" parameterType="Site">
 		UPDATE T_CMS_SITE
 		<set>
-			<if test="updateTime != null">
-				UPDATE_TIME = NOW(),
-			</if>
-			<if test="createBy != null and createBy != ''">
-				CREATE_BY = #{createBy,jdbcType=VARCHAR},
-			</if>
+			UPDATE_TIME = NOW(),
 			<if test="updateBy != null and updateBy != ''">
 				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
 			</if>

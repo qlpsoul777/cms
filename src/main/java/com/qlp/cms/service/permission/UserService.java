@@ -30,4 +30,14 @@ public class UserService {
 		return userDao.findByLoginName(loginName);
 	}
 
+	@Transactional(readOnly = false)
+	public void save(User user) {
+		LogUtil.info(logger, "待保存的User:{0}", user);
+		if(user.getId() != null){
+			userDao.updateUser(user);
+		}else{
+			userDao.saveUser(user);
+		}
+	}
+
 }

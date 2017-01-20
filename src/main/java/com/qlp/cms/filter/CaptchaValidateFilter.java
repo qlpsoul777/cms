@@ -30,10 +30,12 @@ public class CaptchaValidateFilter extends AccessControlFilter{
 	protected boolean isAccessAllowed(ServletRequest req,
 			ServletResponse response, Object mappedValue) throws Exception {
     	
-    	if(!captchaEbabled){
-    		return true;
-    	}
-    	HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletRequest request = (HttpServletRequest) req;
+		
+		//2、判断验证码是否禁用 或不是表单提交（允许访问）
+        if (captchaEbabled == false || !"post".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
     	
     	String captchaCode = request.getParameter(captchaCodeKey);
     	String sessionCaptchaCode = (String) request.getSession().getAttribute(captchaCodeKey);

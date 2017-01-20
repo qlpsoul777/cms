@@ -3,6 +3,7 @@ package com.qlp.cms.service.permission;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -24,9 +25,9 @@ public class DataBaseRelam extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		String identifying = (String) principals.getPrimaryPrincipal();
+		String loginName = (String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//		info.setRoles(userService.findRolesByLoginName(identifying));
+//		info.setRoles(userService.findRolesByLoginName(loginName));
 		return info;
 	}
 
@@ -35,13 +36,17 @@ public class DataBaseRelam extends AuthorizingRealm{
 			AuthenticationToken token) throws AuthenticationException {
 		String loginName = (String) token.getPrincipal();
 		User user = userService.findByLoginName(loginName);
-		//TODO 判断
+		
 		if(user == null){
             throw new UnknownAccountException();
         }
-        if(UserStatusEnum.LOCKED.getCode() == user.getStatus()){
-            throw new LockedAccountException();
-        }
+		if(UserStatusEnum.LOCKED.getCode() == user.getStatus()){
+			throw new LockedAccountException();
+		}
+		if(UserStatusEnum.DISABLE.getCode() == user.getStatus()){
+			throw new DisabledAccountException();
+		}
+        
 		return new SimpleAuthenticationInfo(loginName,user.getPassword(),ByteSource.Util.bytes(loginName + user.getSalt()),getName());
 	}
 

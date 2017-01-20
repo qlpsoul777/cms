@@ -22,6 +22,131 @@
 		    LOCK_TIME lockTime
         ]]>
 	</sql>
+	
+	<!--新增用户-->
+	<insert id="saveUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO T_PERMISSION_USER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			CREATE_TIME,UPDATE_TIME,
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
+			<if test="loginName != null and loginName != ''">
+				LOGIN_NAME,
+			</if>
+			<if test="password != null and password != ''">
+				PASSWORD,
+			</if>
+			<if test="name != null and name != ''">
+				NAME,
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL,
+			</if>
+			<if test="phoneNum != null and phoneNum != ''">
+				PHONE_NUM,
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS,
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH,
+			</if>
+			<if test="salt != null and salt != ''">
+				SALT,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="lockTime != null">
+				LOCK_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			NOW(),NOW(),
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null and loginName != ''">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNum != null and phoneNum != ''">
+				#{phoneNum,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null and address != ''">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				#{imgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null and salt != ''">
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=NUMERIC},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=NUMERIC},
+			</if>
+			<if test="lockTime != null">
+				#{lockTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE T_PERMISSION_USER
+		<set>
+			UPDATE_TIME = NOW(),
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNum != null and phoneNum != ''">
+				PHONE_NUM = #{phoneNum,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH = #{imgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=NUMERIC},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=NUMERIC},
+			</if>
+			<if test="lockTime != null">
+				LOCK_TIME = #{lockTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
 	<select id="findByLoginName" parameterType="java.lang.String" resultType="User">
 		SELECT ID id,LOGIN_NAME loginName,PASSWORD password,SALT salt,STATUS status
 		FROM T_PERMISSION_USER WHERE LOGIN_NAME = #{loginName,jdbcType=VARCHAR}

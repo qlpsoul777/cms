@@ -3,6 +3,7 @@ package com.qlp.cms.controller.permission;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -31,6 +32,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String first(){
+		SecurityUtil.logout();
+        return "/cms/user/login";
+    }
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request){
 		String msg = "";//登录提示信息
@@ -43,11 +50,13 @@ public class UserController {
             msg = "用户名/密码错误";
         }else if(LockedAccountException.class.getName().equals(errorClassName)){
             msg ="用户被锁定";
+        }else if(ExcessiveAttemptsException.class.getName().equals(errorClassName)){
+            msg ="登录次数过多";
         }else if(errorClassName != null){
             msg = "登录出错";
         }
         request.setAttribute("msg", msg);
-		return "/user/login";
+		return "/cms/user/login";
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -56,7 +65,7 @@ public class UserController {
     	String loginName = SecurityUtil.getCurrentUserLoginName();
     	User user = userService.findByLoginName(loginName);
     	request.setAttribute("user",user);
-        return "/user/index";
+        return "/cms/user/index";
     }
 
 }

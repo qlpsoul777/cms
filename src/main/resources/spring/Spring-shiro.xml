@@ -15,8 +15,8 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
-        <property name="loginUrl" value="/login"></property>
-        <property name="successUrl" value="/index"></property>
+        <property name="loginUrl" value="/user/login"></property>
+        <property name="successUrl" value="/user/index"></property>
         <property name="filters">
             <util:map>
             	<entry key="captchaValidate" value-ref="captchaValidateFilter"/>
@@ -39,14 +39,15 @@
         <property name="cacheManager" ref="redisCacheManager" />
     </bean>
 
-    <bean id="databaseRealm" class="com.qlp.cms.service.permission.DataBaseRelam">
+    <bean id="databaseRealm" class="com.qlp.cms.service.permission.DataBaseRelam" depends-on="userDao">
         <property name="credentialsMatcher" ref="passwordMatcher"></property>
     </bean>
     
     <bean id="passwordMatcher" class="com.qlp.cms.service.permission.RetryPasswordCount">
         <property name="limit" value="5"></property>
         <property name="hashAlgorithmName" value="SHA-256"></property>
-        <property name="storedCredentialsHexEncoded" value="true"/>
+        <property name="hashIterations" value="2"></property>
+        <property name="storedCredentialsHexEncoded" value="false"/>
     </bean>
 
     <bean id="redisCacheManager" class="com.qlp.core.cache.RedisCacheManager">
@@ -62,7 +63,7 @@
     </bean>
     
     <bean id="captchaValidateFilter" class="com.qlp.cms.filter.CaptchaValidateFilter">
-        <property name="captchaEbabled" value="true"/>
+        <property name="captchaEbabled" value="false"/>
         <property name="captchaCodeKey" value="captchaCode"/>
         <property name="failureKeyAttribute" value="shiroLoginFailure"/>
     </bean>
