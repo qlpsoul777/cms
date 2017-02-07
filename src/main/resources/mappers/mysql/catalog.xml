@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.base.CatalogDao">
+	<sql id="catalogColumn">
+		<![CDATA[
+		    ID id,
+		    CREATE_TIME createTime,
+		    UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
+		    NAME name,
+		    ALIAS alias,
+		    STATUS status,
+		    INTRODUCTION introduction,
+		    PATH path,
+		    CONTENT_TYPE contentType,
+		    SORT sort,
+		    IMG_PATH imgPath,
+		    SITE_ID siteId,
+		    PID pId
+        ]]>
+	</sql>
+
+	<!--新增栏目-->
+	<insert id="saveCatalog" parameterType="Catalog" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO T_CMS_CATALOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			CREATE_TIME,UPDATE_TIME,
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
+			<if test="name != null and name != ''">
+				NAME,
+			</if>
+			<if test="alias != null and alias != ''">
+				ALIAS,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="introduction != null and introduction != ''">
+				INTRODUCTION,
+			</if>
+			<if test="path != null and path != ''">
+				PATH,
+			</if>
+			<if test="contentType != null and contentType != ''">
+				CONTENT_TYPE,
+			</if>
+			<if test="sort != null and sort != ''">
+				SORT,
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH,
+			</if>
+			<if test="siteId != null">
+				SITE_ID,
+			</if>
+			<if test="pId != null">
+				PID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			NOW(),NOW(),
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="alias != null and alias != ''">
+				#{alias,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=NUMERIC},
+			</if>
+			<if test="introduction != null and introduction != ''">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				#{path,jdbcType=VARCHAR},
+			</if>
+			<if test="contentType != null and contentType != ''">
+				#{contentType,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null and sort != ''">
+				#{sort,jdbcType=NUMERIC},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				#{imgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="siteId != null">
+				#{siteId,jdbcType=NUMERIC},
+			</if>
+			<if test="pId != null">
+				#{pId,jdbcType=NUMERIC},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 删除栏目 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM T_CMS_CATALOG WHERE ID = #{id,jdbcType=NUMERIC}
+	</delete>
+
+	<!-- 修改栏目信息 -->
+	<update id="updateCatalog" parameterType="Catalog">
+		UPDATE T_CMS_CATALOG
+		<set>
+			UPDATE_TIME = NOW(),
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="alias != null and alias != ''">
+				ALIAS = #{alias,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=NUMERIC},
+			</if>
+			<if test="introduction != null and introduction != ''">
+				INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="path != null and path != ''">
+				PATH = #{path,jdbcType=VARCHAR},
+			</if>
+			<if test="contentType != null and contentType != ''">
+				CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null and sort != ''">
+				SORT = #{sort,jdbcType=NUMERIC},
+			</if>
+			<if test="imgPath != null and imgPath != ''">
+				IMG_PATH = #{imgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="siteId != null">
+				SITE_ID = #{siteId,jdbcType=NUMERIC},
+			</if>
+			<if test="pId != null">
+				PID = #{pId,jdbcType=NUMERIC},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 根据栏目id查询栏目信息 -->
+	<select id="queryById" parameterType="java.lang.Long" resultType="Catalog">
+		SELECT <include refid="catalogColumn"/> FROM T_CMS_CATALOG t WHERE t.ID = #{id,jdbcType=NUMERIC}
+	</select>
+</mapper>

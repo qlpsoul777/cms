@@ -18,7 +18,7 @@
 	     <!-- 工程包路径 -->
 	     <property name="rootPath" value="com.qlp.cms"></property>
 	     <!-- 实体所在父路径 -->
-	     <property name="parentPath" value="permission"></property>
+	     <property name="parentPath" value="base"></property>
 	     <!-- sql配置文件存放路径 -->
 	     <property name="sqlPath" value="F:\july\myWorkSpace\cms\src\main\resources\mappers\mysql"></property>
 	     <!-- jsp文件存放路径 -->
@@ -27,7 +27,7 @@
 	     <!-- 实体名 -->
 	     <property name="entitys">
 	     	<list>
-	     		<value>User</value>
+	     		<value>Catalog</value>
 	     		<!-- <value>Site</value>
 	     		<value>Template</value>
 	     		<value>Content</value> -->
