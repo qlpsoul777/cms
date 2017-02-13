@@ -1,6 +1,5 @@
 package com.qlp.cms.entity.base;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import com.qlp.core.entity.IdEntity;
@@ -120,13 +119,4 @@ public class Catalog extends IdEntity{
 		this.children = children;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException {
-		Class clazz = Class.forName("com.qlp.cms.entity.base.Catalog");
-		Field[] fields = clazz.getDeclaredFields();
-		for (int i = 0; i < fields.length; i++) {
-			System.out.println(fields[i].getName());
-			System.out.println(fields[i].getType());
-		}
-	}
-
 }
