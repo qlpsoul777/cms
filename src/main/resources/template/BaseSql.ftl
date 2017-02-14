@@ -13,40 +13,55 @@
         ]]>
 	</sql>
 
-	<!--新增${target.name}-->
+	<!--${target.name}-->
 	<insert id="save${target.name}" parameterType="${target.name}" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO ${target.tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			CREATE_TIME,UPDATE_TIME,
-			
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
 			
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			NOW(),NOW(),
+			<#noparse>
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			</#noparse>
 			
 		</trim>
 	</insert>
 
-	<!-- 删除${target.name} -->
+	<!-- 鍒犻櫎${target.name} -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM ${target.tableName} WHERE ID = {id,jdbcType=NUMERIC}
+		DELETE FROM ${target.tableName} WHERE ID<#noparse>=#{id,jdbcType=NUMERIC}</#noparse>
 	</delete>
 
-	<!-- 修改${target.name} -->
+	<!--${target.name} -->
 	<update id="update${target.name}" parameterType="${target.name}">
 		UPDATE ${target.tableName}
 		<set>
 			UPDATE_TIME = NOW(),
+			<#noparse>
 			<if test="updateBy != null and updateBy != ''">
-				UPDATE_BY = {updateBy,jdbcType=VARCHAR},
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
 			</if>
+			</#noparse>
 			
 		</set>
-		WHERE ID = {id,jdbcType=NUMERIC}
+		WHERE ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</update>
 	
-	<!-- 根据主键id查询${target.name} -->
+	<!-- ${target.name} -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="${target.name}">
-		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} t WHERE t.ID = {id,jdbcType=NUMERIC}
+		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} t WHERE t.ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</select>
 </mapper>
