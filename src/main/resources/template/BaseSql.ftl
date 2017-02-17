@@ -24,7 +24,7 @@
 			<if test="updateBy != null and updateBy != ''">
 				UPDATE_BY,
 			</if>
-			
+			<@sql_case className="${target.className}" type=1/>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			NOW(),NOW(),
@@ -36,11 +36,11 @@
 				#{updateBy,jdbcType=VARCHAR},
 			</if>
 			</#noparse>
-			
+			<@sql_case className="${target.className}" type=2/>
 		</trim>
 	</insert>
 
-	<!-- 删除${target.name} -->
+	<!-- ${target.name} -->
 	<delete id="deleteById" parameterType="java.lang.Long">
 		DELETE FROM ${target.tableName} WHERE ID<#noparse>=#{id,jdbcType=NUMERIC}</#noparse>
 	</delete>
@@ -55,7 +55,7 @@
 				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
 			</if>
 			</#noparse>
-			
+			<@sql_case className="${target.className}" type=3/>
 		</set>
 		WHERE ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</update>
