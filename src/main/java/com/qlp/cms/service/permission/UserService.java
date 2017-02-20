@@ -39,5 +39,9 @@ public class UserService {
 			userDao.saveUser(user);
 		}
 	}
+	
+	public boolean isRoot(User user){
+		return "root".equals(user.getLoginName());
+	}
 
 }

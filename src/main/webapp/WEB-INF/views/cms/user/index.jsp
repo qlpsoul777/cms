@@ -73,9 +73,16 @@
             </div>
         </div>
         <div class="navcontent">
-            <ul class="headermenu">
+            <ul class="headermenu" id="headermenu">
                 <li class="active"><a href="index.html">首页</a></li>
                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">用户管理</a></li>
+                        <li><a href="#">角色管理</a></li>
+                    </ul>
+                </li>
+                <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">站点管理<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="list.html" target="content_iframe">栏目管理</a></li>
@@ -117,7 +124,7 @@
                         <li><a href="#">系统参数管理</a></li>
                         <li><a href="#">日志管理</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
 
 

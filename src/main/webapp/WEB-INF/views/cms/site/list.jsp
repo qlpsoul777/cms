@@ -73,7 +73,7 @@
 				        			<td>${site.createBy }</td>
 				        			<td>
 				        				<a href="${ctx }/site/edit?id=${site.id}">编辑</a>
-				        				<a href="${ctx }/site/manager/${site.id}">管理</a>
+				        				<a href="${ctx }/site/manager/${site.id}" target="content_iframe">管理</a>
 				        			</td>
 				        		</tr>
 				        	</c:forEach>

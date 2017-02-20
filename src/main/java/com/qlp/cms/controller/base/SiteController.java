@@ -99,6 +99,8 @@ public class SiteController {
 		
 		AssertUtil.assertNotNull(site, "未查询到站点信息");
 		request.getSession().setAttribute(CmsConstant.SITE_KEY, site);
+		
+		
 		return "/cms/site/manager";
 	}
 

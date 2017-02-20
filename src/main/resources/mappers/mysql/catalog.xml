@@ -154,6 +154,12 @@
 	
 	<!-- 根据栏目id查询栏目信息 -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="Catalog">
-		SELECT <include refid="catalogColumn"/> FROM T_CMS_CATALOG t WHERE t.ID = #{id,jdbcType=NUMERIC}
+		SELECT <include refid="catalogColumn"/> FROM T_CMS_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="queryBySiteId" parameterType="java.lang.Long" resultType="Catalog">
+		SELECT T.ID id,T.NAME name,T.PID pId FROM T_CMS_CATALOG T 
+		WHERE T.SITE_ID = #{siteId,jdbcType=NUMERIC}
+		AND T.STATUS = 1 ORDER BY T.SORT ASC
 	</select>
 </mapper>
