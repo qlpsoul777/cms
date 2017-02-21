@@ -56,6 +56,15 @@ public class CatalogController {
 		return catalogService.queryCatalogTree(site);
 	}
 	
+	public String visibleTree(HttpServletRequest request,int type){
+		Site site = (Site) request.getSession().getAttribute(CmsConstant.SITE_KEY);
+		AssertUtil.assertNotNull(site, SysErrorEnum.DOMAIN_NOT_FOUND, "无法从session中获取站点信息");
+
+		String treeJson = catalogService.queryCatalogTree(site);
+		request.setAttribute("treeJson", treeJson);
+		return "/cms/catalog/visible_tree";
+	}
+	
 	@RequestMapping("/info")
 	@ResponseBody
 	public void info(HttpServletRequest request,HttpServletResponse response,@RequestParam(value = "id", required = true) Long id){

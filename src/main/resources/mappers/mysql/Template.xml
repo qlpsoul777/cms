@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.base.TemplateDao">
+	<sql id="templateColumn">
+		<![CDATA[
+		    ID id,
+			CREATE_TIME createTime,
+			UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
+            NAME name,
+            TYPE type,
+            PATH path,
+            SORT sort,
+            STATUS status,
+            CONTENT content,
+            INTRODUCTION introduction,
+            CATALOG_ID catalogId,
+            SITE_ID siteId
+        ]]>
+	</sql>
+
+	<!--新增Template-->
+	<insert id="saveTemplate" parameterType="Template" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO T_BASE_TEMPLATE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			CREATE_TIME,UPDATE_TIME,
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
+            <if test="name != null and name !=''">
+                NAME,
+            </if>
+            <if test="type != null">
+                TYPE,
+            </if>
+            <if test="path != null and path !=''">
+                PATH,
+            </if>
+            <if test="sort != null">
+                SORT,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="content != null and content !=''">
+                CONTENT,
+            </if>
+            <if test="introduction != null and introduction !=''">
+                INTRODUCTION,
+            </if>
+            <if test="catalogId != null">
+                CATALOG_ID,
+            </if>
+            <if test="siteId != null">
+                SITE_ID,
+            </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			NOW(),NOW(),
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+            <if test="name != null and name !=''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=NUMERIC},
+            </if>
+            <if test="path != null and path !=''">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=NUMERIC},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=NUMERIC},
+            </if>
+            <if test="content != null and content !=''">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null and introduction !=''">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="catalogId != null">
+                #{catalogId,jdbcType=NUMERIC},
+            </if>
+            <if test="siteId != null">
+                #{siteId,jdbcType=NUMERIC},
+            </if>
+		</trim>
+	</insert>
+
+	<!-- 删除Template -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM T_BASE_TEMPLATE WHERE ID=#{id,jdbcType=NUMERIC}
+	</delete>
+
+	<!--更新Template -->
+	<update id="updateTemplate" parameterType="Template">
+		UPDATE T_BASE_TEMPLATE
+		<set>
+			UPDATE_TIME = NOW(),
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+			</if>
+            <if test="name != null and name !=''">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                TYPE = #{type,jdbcType=NUMERIC},
+            </if>
+            <if test="path != null and path !=''">
+                PATH = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                SORT = #{sort,jdbcType=NUMERIC},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=NUMERIC},
+            </if>
+            <if test="content != null and content !=''">
+                CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null and introduction !=''">
+                INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="catalogId != null">
+                CATALOG_ID = #{catalogId,jdbcType=NUMERIC},
+            </if>
+            <if test="siteId != null">
+                SITE_ID = #{siteId,jdbcType=NUMERIC},
+            </if>
+		</set>
+		WHERE ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 查询Template -->
+	<select id="queryById" parameterType="java.lang.Long" resultType="Template">
+		SELECT <include refid="templateColumn"/> FROM T_BASE_TEMPLATE t WHERE t.ID = #{id,jdbcType=NUMERIC}
+	</select>
+</mapper>

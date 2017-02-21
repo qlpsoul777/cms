@@ -13,7 +13,7 @@
         ]]>
 	</sql>
 
-	<!--${target.name}-->
+	<!--新增${target.name}-->
 	<insert id="save${target.name}" parameterType="${target.name}" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO ${target.tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -40,12 +40,12 @@
 		</trim>
 	</insert>
 
-	<!-- ${target.name} -->
+	<!-- 删除${target.name} -->
 	<delete id="deleteById" parameterType="java.lang.Long">
 		DELETE FROM ${target.tableName} WHERE ID<#noparse>=#{id,jdbcType=NUMERIC}</#noparse>
 	</delete>
 
-	<!--${target.name} -->
+	<!--更新${target.name} -->
 	<update id="update${target.name}" parameterType="${target.name}">
 		UPDATE ${target.tableName}
 		<set>
@@ -60,7 +60,7 @@
 		WHERE ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</update>
 	
-	<!-- ${target.name} -->
+	<!-- 根据主键id查询${target.name} -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="${target.name}">
 		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} t WHERE t.ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</select>

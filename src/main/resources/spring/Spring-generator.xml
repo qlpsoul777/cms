@@ -27,9 +27,10 @@
 	     <!-- 实体名 -->
 	     <property name="entitys">
 	     	<list>
-	     		<value>Catalog</value>
-	     		<!-- <value>Site</value>
 	     		<value>Template</value>
+	     		<!-- 
+	     		<value>Catalog</value>
+	     		<value>Site</value>
 	     		<value>Content</value> -->
 	     	</list>
 	     </property>
