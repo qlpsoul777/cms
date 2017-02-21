@@ -2,6 +2,8 @@ package com.qlp.cms.service.base;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.qlp.cms.entity.base.Site;
 import com.qlp.core.entity.MsgInfo;
 import com.qlp.core.util.CollectionUtil;
 import com.qlp.core.util.LogUtil;
+import com.qlp.core.web.WebUtil;
 
 @Service("catalogService")
 @Transactional(readOnly = true)
@@ -32,14 +35,6 @@ public class CatalogService {
 		return catalog;
 	}
 
-	public Catalog newIfNotFound(Long id) {
-		if(id == null){
-			return new Catalog();
-		}
-		return queryById(id);
-	}
-
-	
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		catalogDao.deleteById(id);
@@ -50,15 +45,15 @@ public class CatalogService {
 		JSONArray jsonArray = new JSONArray();
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", 0L);
+		jsonObj.put("pId", -1L);
 		jsonObj.put("name", site.getName());
-		jsonObj.put("pid", null);
 		jsonArray.add(jsonObj);
 		if(CollectionUtil.isNotBlank(catalogs)){
 			for (Catalog catalog : catalogs) {
 				jsonObj = new JSONObject();
 				jsonObj.put("id", catalog.getId());
+				jsonObj.put("pId", catalog.getpId());
 				jsonObj.put("name", catalog.getName());
-				jsonObj.put("pid", catalog.getpId());
 				jsonArray.add(jsonObj);
 			}
 		}
@@ -68,11 +63,10 @@ public class CatalogService {
 	}
 
 	@Transactional(readOnly = false)
-	public String save(Long pId, Catalog catalog, Site site) {
+	public void save(HttpServletResponse response,Catalog catalog, Site site) {
 		catalog.setSiteId(site.getId());
-		catalog.setpId(pId);
 		
-		Catalog parent = catalogDao.queryById(pId);
+		Catalog parent = catalogDao.queryById(catalog.getpId());
 		String path = null;
 		if(parent == null){
 			path = CmsConstant.OVER_CHAR + site.getNum() + CmsConstant.OVER_CHAR + catalog.getAlias();
@@ -83,12 +77,13 @@ public class CatalogService {
 		catalog.setPath(path);
 		
 		LogUtil.info(logger, "待持久化参数catalog:{0}", catalog);
-		if(site.getId() != null){
+		if(catalog.getId() != null){
 			catalogDao.updateCatalog(catalog);
 		}else{
 			catalogDao.saveCatalog(catalog);
 		}
-		return JSONObject.toJSONString(new MsgInfo(true));
+		
+		WebUtil.responseJson(response, new MsgInfo(true));
 	}
 
 }

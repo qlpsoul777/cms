@@ -24,7 +24,7 @@
 
 	<!--新增栏目-->
 	<insert id="saveCatalog" parameterType="Catalog" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO T_CMS_CATALOG
+		INSERT INTO T_BASE_CATALOG
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			CREATE_TIME,UPDATE_TIME,
 			<if test="createBy != null and createBy != ''">
@@ -87,8 +87,8 @@
 			<if test="path != null and path != ''">
 				#{path,jdbcType=VARCHAR},
 			</if>
-			<if test="contentType != null and contentType != ''">
-				#{contentType,jdbcType=VARCHAR},
+			<if test="contentType != null">
+				#{contentType.desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sort != null and sort != ''">
 				#{sort,jdbcType=NUMERIC},
@@ -107,12 +107,12 @@
 
 	<!-- 删除栏目 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM T_CMS_CATALOG WHERE ID = #{id,jdbcType=NUMERIC}
+		DELETE FROM T_BASE_CATALOG WHERE ID = #{id,jdbcType=NUMERIC}
 	</delete>
 
 	<!-- 修改栏目信息 -->
 	<update id="updateCatalog" parameterType="Catalog">
-		UPDATE T_CMS_CATALOG
+		UPDATE T_BASE_CATALOG
 		<set>
 			UPDATE_TIME = NOW(),
 			<if test="updateBy != null and updateBy != ''">
@@ -133,8 +133,8 @@
 			<if test="path != null and path != ''">
 				PATH = #{path,jdbcType=VARCHAR},
 			</if>
-			<if test="contentType != null and contentType != ''">
-				CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+			<if test="contentType != null">
+				CONTENT_TYPE = #{contentType.desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sort != null and sort != ''">
 				SORT = #{sort,jdbcType=NUMERIC},
@@ -154,12 +154,12 @@
 	
 	<!-- 根据栏目id查询栏目信息 -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="Catalog">
-		SELECT <include refid="catalogColumn"/> FROM T_CMS_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
+		SELECT <include refid="catalogColumn"/> FROM T_BASE_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	
 	<select id="queryBySiteId" parameterType="java.lang.Long" resultType="Catalog">
-		SELECT T.ID id,T.NAME name,T.PID pId FROM T_CMS_CATALOG T 
+		SELECT T.ID id,T.NAME name,T.PID pId FROM T_BASE_CATALOG T 
 		WHERE T.SITE_ID = #{siteId,jdbcType=NUMERIC}
-		AND T.STATUS = 1 ORDER BY T.SORT ASC
+		ORDER BY T.PID, T.SORT
 	</select>
 </mapper>

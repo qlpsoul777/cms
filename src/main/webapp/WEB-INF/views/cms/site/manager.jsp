@@ -13,10 +13,10 @@
 	    <link href="${ctx}/static/js/ztree3/zTreeStyle/zTreeStyle.css" rel="stylesheet">
   	</head>
 	<body>
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 	  		<iframe id="mainIframe" name="mainIframe" width="100%" height="100%" border="0" frameborder="no" style="border: none;
              padding: 0px; margin: 0px;min-height: 530px;overflow-y: scroll;"></iframe>	
-  		</div>
+  		</div> -->
 		<script src="${ctx}/static/js/jquery-1.11.1.min.js"></script>
 		<script src="${ctx}/static/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
@@ -25,7 +25,7 @@
 			var html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">站点管理<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="${ctx}/catalog/manager" target="content_iframe">栏目管理</a></li><li><a href="#">模板管理</a></li><li><a href="#">变量管理</a></li><li class="divider"></li><li><a href="#">发布管理</a></li><li><a href="#"></a></li></ul></li>';
 			menu.html(html);
 			
-			$('#mainIframe').attr('src','${ctx}/catalog/manager');
+			$('#content_iframe',parent.document).attr('src','${ctx}/catalog/manager');
 		});
 	
 		function init(target){

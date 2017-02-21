@@ -5,6 +5,11 @@ import java.util.List;
 import com.qlp.core.entity.IdEntity;
 import com.qlp.core.enums.ContentTypeEnum;
 
+/**
+ * 栏目实体(T_CMS_CATALOG)
+ * @author qlp
+ *
+ */
 public class Catalog extends IdEntity{
 
 	private static final long serialVersionUID = 6146737328227401680L;
@@ -27,7 +32,9 @@ public class Catalog extends IdEntity{
 	
 	private Long siteId;				//所属站点
 	
-	private Long pId;					//父级栏目
+	private Long pId;					//父级栏目Id
+	
+	private Catalog parent;				//父级栏目
 	
 	private List<Catalog> children;		//子栏目
 
@@ -109,6 +116,14 @@ public class Catalog extends IdEntity{
 
 	public void setpId(Long pId) {
 		this.pId = pId;
+	}
+	
+	public Catalog getParent() {
+		return parent;
+	}
+
+	public void setParent(Catalog parent) {
+		this.parent = parent;
 	}
 
 	public List<Catalog> getChildren() {

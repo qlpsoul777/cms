@@ -18,13 +18,50 @@ USE `cms`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `t_cms_site`
+-- Table structure for table `t_base_catalog`
 --
 
-DROP TABLE IF EXISTS `t_cms_site`;
+DROP TABLE IF EXISTS `t_base_catalog`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `t_cms_site` (
+CREATE TABLE `t_base_catalog` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(45) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `alias` varchar(45) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `introduction` varchar(45) DEFAULT NULL,
+  `path` varchar(45) DEFAULT NULL,
+  `content_type` varchar(45) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `img_path` varchar(45) DEFAULT NULL,
+  `site_id` bigint(20) DEFAULT NULL,
+  `pid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_base_catalog`
+--
+
+LOCK TABLES `t_base_catalog` WRITE;
+/*!40000 ALTER TABLE `t_base_catalog` DISABLE KEYS */;
+INSERT INTO `t_base_catalog` VALUES (1,NULL,'2017-02-21 11:11:31',NULL,'2017-02-21 11:11:31','传统武侠','chtwx',1,'传统武侠世界','/wuxia/chtwx','HTML',1,NULL,1,0),(2,NULL,'2017-02-21 11:37:41',NULL,'2017-02-21 15:42:07','古龙','old_long',1,'古龙','/wuxia/chtwx/old_long','JSP',1,NULL,1,1),(3,NULL,'2017-02-21 14:55:51',NULL,'2017-02-21 15:42:35','新派武侠','xpwx',1,'新派武侠世界','/wuxia/xpwx','HTML',2,NULL,1,0);
+/*!40000 ALTER TABLE `t_base_catalog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_base_site`
+--
+
+DROP TABLE IF EXISTS `t_base_site`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_base_site` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_by` varchar(255) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -41,13 +78,85 @@ CREATE TABLE `t_cms_site` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `t_cms_site`
+-- Dumping data for table `t_base_site`
 --
 
-LOCK TABLES `t_cms_site` WRITE;
-/*!40000 ALTER TABLE `t_cms_site` DISABLE KEYS */;
-INSERT INTO `t_cms_site` VALUES (1,NULL,'2016-11-22 19:14:52',NULL,NULL,'武侠世界1','武侠','wuxia','wuxia',1,NULL),(2,NULL,'2016-11-22 19:25:32',NULL,NULL,'原创古风','古风','style','style',1,NULL),(3,NULL,'2017-01-09 12:04:04',NULL,'2017-01-09 12:04:04','sadfasfdasdfasdfasdfasdf','电风扇地方','dfs','/dfs/index.html',1,NULL);
-/*!40000 ALTER TABLE `t_cms_site` ENABLE KEYS */;
+LOCK TABLES `t_base_site` WRITE;
+/*!40000 ALTER TABLE `t_base_site` DISABLE KEYS */;
+INSERT INTO `t_base_site` VALUES (1,NULL,'2016-11-22 19:14:52',NULL,NULL,'武侠世界1','武侠','wuxia','wuxia',1,NULL),(2,NULL,'2016-11-22 19:25:32',NULL,NULL,'原创古风','古风','style','style',1,NULL),(3,NULL,'2017-01-09 12:04:04',NULL,'2017-01-09 12:04:04','sadfasfdasdfasdfasdfasdf','电风扇地方','dfs','/dfs/index.html',1,NULL);
+/*!40000 ALTER TABLE `t_base_site` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_base_template`
+--
+
+DROP TABLE IF EXISTS `t_base_template`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_base_template` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` varchar(45) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(45) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `path` varchar(150) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `content` longtext,
+  `introduction` varchar(255) DEFAULT NULL,
+  `catalog_id` bigint(20) DEFAULT NULL,
+  `site_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_base_template`
+--
+
+LOCK TABLES `t_base_template` WRITE;
+/*!40000 ALTER TABLE `t_base_template` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_base_template` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_permission_user`
+--
+
+DROP TABLE IF EXISTS `t_permission_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_permission_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` varchar(30) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(30) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `login_name` varchar(45) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone_num` varchar(20) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `img_path` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `sex` int(11) DEFAULT NULL,
+  `lock_time` datetime DEFAULT NULL,
+  `salt` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_permission_user`
+--
+
+LOCK TABLES `t_permission_user` WRITE;
+/*!40000 ALTER TABLE `t_permission_user` DISABLE KEYS */;
+INSERT INTO `t_permission_user` VALUES (1,NULL,NULL,NULL,'2017-01-20 15:57:01','root','vNqskYFKJA2+7vSgP7H62eShTN2cdWSgaH3U9njwIFg=',NULL,NULL,NULL,NULL,NULL,1,1,'2017-01-20 15:57:01','ZSWxKwJyy8eTslaqktQ+Pw==');
+/*!40000 ALTER TABLE `t_permission_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-11 15:33:18
+-- Dump completed on 2017-02-21 16:26:11

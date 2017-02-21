@@ -40,9 +40,9 @@ div#rMenu {
 			</div>
 			<div class="col-md-9">
 				<h3>栏目编辑</h3>
-				<form id="editForm" class="form-horizontal">
-					<input type="hidden" id="id" name="id" />
-					<input type="hidden" id="pId" name="pId" />
+				<form id="editForm" action="${ctx}/catalog/save" method="post" class="form-horizontal">
+					<input type="hidden" id="id" name="id"/>
+					<input type="hidden" id="pId" name="pId"/>
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">栏目中文名</label>
 						<div class="col-sm-10">
@@ -61,7 +61,7 @@ div#rMenu {
 							<div class="radio" id="status">
 								<c:forEach items="${statuss}" var="s">
 									<label> 
-										<input type="radio" value="${s}" name="status" />${s.desc}
+										<input type="radio" value="${s.code}" name="status" />${s.desc}
 									</label>
 								</c:forEach>
 							</div>
@@ -80,9 +80,9 @@ div#rMenu {
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="type" class="col-sm-2 control-label">内容类型</label>
+						<label for="contentType" class="col-sm-2 control-label">内容类型</label>
 						<div class="col-sm-10">
-							<select id="type" name="type" class="form-control">
+							<select id="contentType" name="contentType" class="form-control">
 								<c:forEach items="${types}" var="t">
 									<option value="${t.desc}" >${t.desc}</option>
 								</c:forEach>
@@ -109,7 +109,7 @@ div#rMenu {
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button id="submitForm" class="btn btn-default">保存</button>
+							<button id="submitForm" type="button" class="btn btn-default">保存</button>
 						</div>
 					</div>
 				</form>
@@ -136,14 +136,12 @@ div#rMenu {
 				}
 				$.ajax({
 					url      : "${ctx}/catalog/save",
-					type     : "POST",
+					type     : "post",
 					async    : false,
-					data     :$('#editForm').serializeArray(),
+					data     : $('#editForm').serializeArray(),
 					dataType : "json",
 					success  : function(data){
-						console.log(data);
-						console.log(typeof data);
-						if(data == 'success'){
+						if(data.isSuccess){
 							alert('保存成功');
 							loadTree();
 						}else{
@@ -167,10 +165,13 @@ div#rMenu {
 					dblClickExpand : false,
 					selectedMulti : false
 				},
-				simpleData: {
-					enable: false,
-					idKey: "id",
-					rootPId: null
+				data:{
+					simpleData: {
+						enable: true,
+						idKey: "id",
+						pIdKey: "pId",
+						rootPId: -1
+					}
 				},
 				callback:{
 					onRightClick: zTreeOnRightClick,
@@ -240,8 +241,8 @@ div#rMenu {
 		}
 		
 		function deleteTreeNode(node){
-			$.get("${ctx}/catalog/delete?id=" + node.id,function(data){
-		    	if(data == 'success'){
+			$.get("${ctx}/catalog/delete/" + node.id,function(data){
+		    	if(data.isSuccess){
 		    		zTree.removeNode(node);
 		    		removeVal();
 		    	}else{
@@ -253,16 +254,15 @@ div#rMenu {
 		function zTreeOnClick(event, treeId, treeNode){
 			if(treeNode){
 				if(treeNode.id != 0){
-					$.get("${ctx}/catalog/info?id=" + treeNode.id+"&time="+new Date().getTime(),function(data){
-				    	if(data){
-				    		var catalog = JSON.parse(data);
+					$.get("${ctx}/catalog/info?id=" + treeNode.id+"&time="+new Date().getTime(),function(catalog){
+				    	if(catalog){
 				    		$('#id').val(catalog.id);
 				    		var parent = catalog.parent;
 				    		if(parent){
 				    			$('#pId').val(parent.id);
 				    			$('#pName').val(parent.name);
 				    		}else{
-				    			$('#pId').val("");
+				    			$('#pId').val("0");
 				    			$('#pName').val(root.name);
 				    		}
 				    		$('#name').val(catalog.name);
@@ -272,8 +272,8 @@ div#rMenu {
 				    		$('#sort').val(catalog.sort);
 				    		var status = catalog.status;
 				    		$('input[type="radio"][value="'+status+'"]').prop("checked",true);
-				    		var type = catalog.type;
-				    		$('#type option[value="'+type+'"]').prop('selected',true);
+				    		var type = catalog.contentType;
+				    		$('#contentType option[value="'+type+'"]').prop('selected',true);
 				    		
 				    	}
 				    });

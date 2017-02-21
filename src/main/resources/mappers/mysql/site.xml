@@ -20,7 +20,7 @@
 
 	<!--新增站点-->
 	<insert id="saveSite" parameterType="Site" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO T_CMS_SITE
+		INSERT INTO T_BASE_SITE
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			CREATE_TIME,UPDATE_TIME,
 			<if test="createBy != null and createBy != ''">
@@ -79,11 +79,11 @@
 
 	<!-- 删除站点 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM T_CMS_SITE WHERE ID = #{id,jdbcType=NUMERIC}
+		DELETE FROM T_BASE_SITE WHERE ID = #{id,jdbcType=NUMERIC}
 	</delete>
 	<!-- 批量删除 -->
 	<delete id="deleteByIdIn" parameterType="java.lang.Long">
-		DELETE FROM T_CMS_SITE WHERE ID IN
+		DELETE FROM T_BASE_SITE WHERE ID IN
 		<foreach item="id" collection="array" open="(" close=")" separator=",">
             #{id,jdbcType=NUMERIC}
         </foreach>
@@ -91,7 +91,7 @@
 
 	<!-- 修改站点信息 -->
 	<update id="updateSite" parameterType="Site">
-		UPDATE T_CMS_SITE
+		UPDATE T_BASE_SITE
 		<set>
 			UPDATE_TIME = NOW(),
 			<if test="updateBy != null and updateBy != ''">
@@ -121,7 +121,7 @@
 	
 	<!-- 根据分页条件分页查询用户信息 -->
 	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Site">
-		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t
+		SELECT <include refid="siteColumn"/> FROM T_BASE_SITE t
 		<where>
 			<if test="params.name != null and params.name != '' ">
 		         t.NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
@@ -134,6 +134,6 @@
 	
 	<!-- 根据用户id查询用户信息 -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="Site">
-		SELECT <include refid="siteColumn"/> FROM T_CMS_SITE t WHERE t.ID = #{id,jdbcType=NUMERIC}
+		SELECT <include refid="siteColumn"/> FROM T_BASE_SITE t WHERE t.ID = #{id,jdbcType=NUMERIC}
 	</select>
 </mapper>
