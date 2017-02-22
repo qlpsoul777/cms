@@ -50,35 +50,33 @@
 						dblClickExpand : false,
 						selectedMulti : false
 					},
-					simpleData: {
-						enable: false,
-						idKey: "id",
-						rootPId: null
+					data : {
+						simpleData: {
+							enable: true,
+							idKey: "id",
+							pIdKey: "pId",
+							rootPId: -1
+						}
 					},
 					callback:{
 						onClick: zTreeOnClick
 					}
 				};
-				$.ajax({
-					url : "${ctx}/catalog/tree",
-					type : "GET",
-					async : true,
-					dataType : "json",
-					success : function(data){
-						if(data){
-							zTree = $.fn.zTree.init($("#templateTree"), setting, data);
-							zTree.expandAll(true);//全部展开 
-							root = zTree.getNodeByParam("id", 0, null);
-							$('#siteName').val(root.name);
-						}
-					}
-				});
+				var treeJson = JSON.parse('${treeJson}');
+				zTree = $.fn.zTree.init($("#templateTree"), setting,treeJson);
+				zTree.expandAll(true);//全部展开 
+				root = zTree.getNodeByParam("id", 0, null);
 			}
 			
 			function zTreeOnClick(event, treeId, treeNode){
+				var viewType = '${viewType}';
 				if(treeNode){
 					if(treeNode.id != 0){
-						$('#templateIframe').attr('src','${ctx}/template/list?catalogId='+treeNode.id);
+						if(viewType == 1){
+							$('#templateIframe').attr('src','${ctx}/template/list?catalogId='+treeNode.id);
+						}else{
+							$('#templateIframe').attr('src','${ctx}/content/list?catalogId='+treeNode.id);
+						}
 					}
 				}
 			}

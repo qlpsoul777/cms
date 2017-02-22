@@ -18,7 +18,7 @@
 		<script type="text/javascript">
 		$(function () {
 			var menu = $('#headermenu',parent.document);
-			var html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">站点管理<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="${ctx}/catalog/manager" target="content_iframe">栏目管理</a></li><li><a href="${ctx}/template/manager" target="content_iframe">模板管理</a></li><li><a href="${ctx}/content/manager" target="content_iframe">内容管理</a></li><li class="divider"></li><li><a href="#">发布管理</a></li><li><a href="#"></a></li></ul></li>';
+			var html = '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">站点管理<span class="caret"></span></a><ul class="dropdown-menu" role="menu"><li><a href="${ctx}/catalog/manager" target="content_iframe">栏目管理</a></li><li><a href="${ctx}/catalog/visibleTree/1" target="content_iframe">模板管理</a></li><li><a href="${ctx}/catalog/visibleTree/2" target="content_iframe">内容管理</a></li><li class="divider"></li><li><a href="#">发布管理</a></li><li><a href="#"></a></li></ul></li>';
 			menu.html(html);
 			
 			$('#content_iframe',parent.document).attr('src','${ctx}/catalog/manager');

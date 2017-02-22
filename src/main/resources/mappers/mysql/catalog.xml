@@ -157,9 +157,12 @@
 		SELECT <include refid="catalogColumn"/> FROM T_BASE_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="queryBySiteId" parameterType="java.lang.Long" resultType="Catalog">
+	<select id="queryBySiteId" parameterType="java.util.Map" resultType="Catalog">
 		SELECT T.ID id,T.NAME name,T.PID pId FROM T_BASE_CATALOG T 
 		WHERE T.SITE_ID = #{siteId,jdbcType=NUMERIC}
+		<if test="type != null">
+			AND T.STATUS = 1 
+		</if>
 		ORDER BY T.PID, T.SORT
 	</select>
 </mapper>

@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.qlp.cms.entity.base.Site" alias="Site"></typeAlias>
 		<typeAlias type="com.qlp.cms.entity.base.Catalog" alias="Catalog"></typeAlias>
+		<typeAlias type="com.qlp.cms.entity.base.Template" alias="Template"></typeAlias>
 		
 		<typeAlias type="com.qlp.cms.entity.permission.User" alias="User"></typeAlias>
 	</typeAliases>

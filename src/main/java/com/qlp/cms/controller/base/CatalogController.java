@@ -53,15 +53,17 @@ public class CatalogController {
 		Site site = (Site) request.getSession().getAttribute(CmsConstant.SITE_KEY);
 		AssertUtil.assertNotNull(site, SysErrorEnum.DOMAIN_NOT_FOUND, "无法从session中获取站点信息");
 
-		return catalogService.queryCatalogTree(site);
+		return catalogService.queryCatalogTree(site,null);
 	}
 	
-	public String visibleTree(HttpServletRequest request,int type){
+	@RequestMapping("/visibleTree/{viewType}")
+	public String visibleTree(HttpServletRequest request,@PathVariable("viewType") Integer viewType){
 		Site site = (Site) request.getSession().getAttribute(CmsConstant.SITE_KEY);
 		AssertUtil.assertNotNull(site, SysErrorEnum.DOMAIN_NOT_FOUND, "无法从session中获取站点信息");
 
-		String treeJson = catalogService.queryCatalogTree(site);
+		String treeJson = catalogService.queryCatalogTree(site,1);
 		request.setAttribute("treeJson", treeJson);
+		request.setAttribute("viewType", viewType);
 		return "/cms/catalog/visible_tree";
 	}
 	

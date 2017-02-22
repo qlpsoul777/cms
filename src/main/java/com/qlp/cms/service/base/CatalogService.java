@@ -40,8 +40,9 @@ public class CatalogService {
 		catalogDao.deleteById(id);
 	}
 
-	public String queryCatalogTree(Site site) {
-		List<Catalog> catalogs = catalogDao.queryBySiteId(site.getId());
+	public String queryCatalogTree(Site site,Integer type) {
+		List<Catalog> catalogs = catalogDao.queryBySiteId(site.getId(),type);
+		
 		JSONArray jsonArray = new JSONArray();
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", 0L);

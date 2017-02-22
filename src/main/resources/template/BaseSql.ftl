@@ -62,6 +62,6 @@
 	
 	<!-- 根据主键id查询${target.name} -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="${target.name}">
-		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} t WHERE t.ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
+		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} WHERE ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</select>
 </mapper>
