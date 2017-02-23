@@ -43,7 +43,11 @@ public class TemplateService {
 
 	@Transactional(readOnly = false)
 	public void save(Template template) {
-		templateDao.saveTemplate(template);
+		if(template.getId() == null){
+			templateDao.saveTemplate(template);
+		}else{
+			templateDao.updateTemplate(template);
+		}
 	}
 
 	@Transactional(readOnly = false)

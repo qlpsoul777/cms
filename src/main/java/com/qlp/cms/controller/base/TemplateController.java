@@ -5,12 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qlp.cms.constant.CmsConstant;
-import com.qlp.cms.entity.base.Catalog;
 import com.qlp.cms.entity.base.Site;
 import com.qlp.cms.entity.base.Template;
 import com.qlp.cms.enums.TemplateTypeEnum;
@@ -18,10 +16,8 @@ import com.qlp.cms.service.base.CatalogService;
 import com.qlp.cms.service.base.TemplateService;
 import com.qlp.core.annotation.PageRequestParam;
 import com.qlp.core.enums.StatusEnum;
-import com.qlp.core.exception.ErrorDetail.BusiErrorEnum;
 import com.qlp.core.page.Page;
 import com.qlp.core.page.Pageable;
-import com.qlp.core.util.AssertUtil;
 
 @Controller
 @RequestMapping(value = "/template")
@@ -65,7 +61,7 @@ public class TemplateController {
 		template.setSiteId(site.getId());
 		
 		templateService.save(template);
-		return "redirect:list";
+		return "redirect:list?catalogId="+template.getCatalogId();
 	}
 	
 }

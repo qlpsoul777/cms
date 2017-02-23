@@ -62,9 +62,9 @@
 				        		<tr>
 				        			<td><input name="chkName" type="checkbox" value="${template.id }" /></td>
 				        			<td>${template.name }</td>
-				        			<td>${template.type.desc }</td>
+				        			<td>${template.type}</td>
 				        			<td>${template.path }</td>
-				        			<td>${template.status.desc }</td>
+				        			<td>${template.status }</td>
 				        			<td>${template.updateBy }</td>
 				        			<td>${template.updateTime }</td>
 				        			<td>

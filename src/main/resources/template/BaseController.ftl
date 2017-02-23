@@ -38,7 +38,7 @@ public class ${target.name}Controller {
 	public String edit(HttpServletRequest request,@RequestParam(value = "id", required = false) Long id){
 		${target.name} ${target.lowName} = ${target.lowName}Service.newIfNotFound(id);
 		request.setAttribute("${target.lowName}", ${target.lowName});
-		return "/${target.appName}/${target.name}/edit";
+		return "/${target.appName}/${target.lowName}/edit";
 	}
 	
 	@RequestMapping("/save")

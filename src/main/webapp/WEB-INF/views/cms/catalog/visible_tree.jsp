@@ -16,15 +16,14 @@
 				border-style: none;
 				overflow: scroll;
 				overflow-x: hidden;
-				width:90%;
+				width:100%;
+				heigth:520px;
 			}
-			#tempCons{
-				overflow: hidden;
-			}
+			
   		</style>
   	</head>
-	<body id="tempCons">
-		<div class="container">
+	<body>
+		<div class="container-fruid">
 			<div class="row">
 				<div class="col-md-3">
 					<ul id="templateTree" class="ztree"></ul>

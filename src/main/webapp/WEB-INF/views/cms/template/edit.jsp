@@ -16,6 +16,7 @@
   			<h3>模板编辑</h3>
   			<form id="editForm" class="form-horizontal" action="${ctx}/template/save" method="post">
 				<input type="hidden" id="id" name="id" value="${template.id }"/>
+				<input type="hidden" id="catalogId" name="catalogId" value="${template.catalogId}"/>
 			  	<div class="form-group">
 			    	<label for="name" class="col-sm-2 control-label">模板名称</label>
 				    <div class="col-sm-7">
@@ -27,7 +28,7 @@
 			      	<div class="col-sm-7">
 			      		<select id="type" name="type" class="form-control">
 			      			<c:forEach items="${types}" var="t">
-			      				<option value="${t}" <c:if test="${t eq template.type}">selected="selected"</c:if>>${t.desc}</option>
+			      				<option value="${t.code}" <c:if test="${t.code eq template.type}">selected="selected"</c:if>>${t.desc}</option>
 							</c:forEach>
 			      		</select>
 			      	</div>
@@ -50,7 +51,7 @@
 					    <c:forEach items="${statuss}" var="s">
 						    <div class="radio">
 						    	<label>
-						      		<input type="radio" value="${s}" <c:if test="${s eq template.status}">checked="checked"</c:if> name="status"/>${s.desc}
+						      		<input type="radio" value="${s.code}" <c:if test="${s.code eq template.status}">checked="checked"</c:if> name="status"/>${s.desc}
 						      	</label>
 						    </div>
 					    </c:forEach>

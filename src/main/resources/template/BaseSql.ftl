@@ -64,4 +64,16 @@
 	<select id="queryById" parameterType="java.lang.Long" resultType="${target.name}">
 		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} WHERE ID = <#noparse>#{id,jdbcType=NUMERIC}</#noparse>
 	</select>
+	
+	<!-- 根据分页条件分页查询${target.name}信息 -->
+	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="${target.name}">
+		SELECT <include refid="${target.lowName}Column"/> FROM ${target.tableName} T
+		<where>
+			<#noparse>
+			<if test="params.name != null and params.name != '' ">
+		         T.NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
+		    </if>
+			</#noparse>
+		</where>
+	</select>
 </mapper>
