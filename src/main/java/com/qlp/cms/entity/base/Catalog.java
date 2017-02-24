@@ -6,7 +6,7 @@ import com.qlp.core.entity.IdEntity;
 import com.qlp.core.enums.ContentTypeEnum;
 
 /**
- * 栏目实体(T_CMS_CATALOG)
+ * 栏目实体(T_CMS_BASE_CATALOG)
  * @author qlp
  *
  */

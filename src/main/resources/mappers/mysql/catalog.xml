@@ -24,7 +24,7 @@
 
 	<!--新增栏目-->
 	<insert id="saveCatalog" parameterType="Catalog" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO T_BASE_CATALOG
+		INSERT INTO T_CMS_BASE_CATALOG
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			CREATE_TIME,UPDATE_TIME,
 			<if test="createBy != null and createBy != ''">
@@ -107,12 +107,12 @@
 
 	<!-- 删除栏目 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM T_BASE_CATALOG WHERE ID = #{id,jdbcType=NUMERIC}
+		DELETE FROM T_CMS_BASE_CATALOG WHERE ID = #{id,jdbcType=NUMERIC}
 	</delete>
 
 	<!-- 修改栏目信息 -->
 	<update id="updateCatalog" parameterType="Catalog">
-		UPDATE T_BASE_CATALOG
+		UPDATE T_CMS_BASE_CATALOG
 		<set>
 			UPDATE_TIME = NOW(),
 			<if test="updateBy != null and updateBy != ''">
@@ -154,11 +154,11 @@
 	
 	<!-- 根据栏目id查询栏目信息 -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="Catalog">
-		SELECT <include refid="catalogColumn"/> FROM T_BASE_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
+		SELECT <include refid="catalogColumn"/> FROM T_CMS_BASE_CATALOG T WHERE T.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	
 	<select id="queryBySiteId" parameterType="java.util.Map" resultType="Catalog">
-		SELECT T.ID id,T.NAME name,T.PID pId FROM T_BASE_CATALOG T 
+		SELECT T.ID id,T.NAME name,T.PID pId FROM T_CMS_BASE_CATALOG T 
 		WHERE T.SITE_ID = #{siteId,jdbcType=NUMERIC}
 		<if test="type != null">
 			AND T.STATUS = 1 

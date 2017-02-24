@@ -74,7 +74,7 @@
 						if(viewType == 1){
 							$('#templateIframe').attr('src','${ctx}/template/list?catalogId='+treeNode.id);
 						}else{
-							$('#templateIframe').attr('src','${ctx}/content/list?catalogId='+treeNode.id);
+							$('#templateIframe').attr('src','${ctx}/article/list?catalogId='+treeNode.id);
 						}
 					}
 				}

@@ -2,6 +2,11 @@ package com.qlp.cms.entity.permission;
 
 import com.qlp.core.entity.IdEntity;
 
+/**
+ * 角色实体(T_CMS_PERMISSION_ROLE)
+ * @author qlp
+ *
+ */
 public class Role extends IdEntity {
 
 	private static final long serialVersionUID = -1339503459066808514L;

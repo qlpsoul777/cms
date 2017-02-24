@@ -3,7 +3,7 @@ package com.qlp.cms.entity.base;
 import com.qlp.core.entity.IdEntity;
 
 /**
- * 站点实体(T_CMS_SITE)
+ * 站点实体(T_CMS_BASE_SITE)
  * @author qlp
  *
  */

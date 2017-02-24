@@ -4,6 +4,11 @@ import java.util.Date;
 
 import com.qlp.core.entity.IdEntity;
 
+/**
+ * 用户实体(t_cms_permission_User)
+ * @author qlp
+ *
+ */
 public class User extends IdEntity {
 
 	private static final long serialVersionUID = 6456860774589801855L;
@@ -19,7 +24,6 @@ public class User extends IdEntity {
 	
 	private Integer status; 			// 状态
 	private Integer sex;				// 性别
-	
 	
 	private Date lockTime;				//锁定时间
 

@@ -32,7 +32,7 @@
 
 	<!--新增Template-->
 	<insert id="saveTemplate" parameterType="Template" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO T_BASE_TEMPLATE
+		INSERT INTO T_CMS_BASE_TEMPLATE
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			CREATE_TIME,UPDATE_TIME,
 			<if test="createBy != null and createBy != ''">
@@ -109,12 +109,12 @@
 
 	<!-- 删除Template -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		DELETE FROM T_BASE_TEMPLATE WHERE ID=#{id,jdbcType=NUMERIC}
+		DELETE FROM T_CMS_BASE_TEMPLATE WHERE ID=#{id,jdbcType=NUMERIC}
 	</delete>
 
 	<!--更新Template -->
 	<update id="updateTemplate" parameterType="Template">
-		UPDATE T_BASE_TEMPLATE
+		UPDATE T_CMS_BASE_TEMPLATE
 		<set>
 			UPDATE_TIME = NOW(),
 			<if test="updateBy != null and updateBy != ''">
@@ -153,13 +153,13 @@
 	
 	<!-- 查询Template -->
 	<select id="queryById" parameterType="java.lang.Long" resultType="Template">
-		SELECT <include refid="templateColumn"/> FROM T_BASE_TEMPLATE  WHERE ID = #{id,jdbcType=NUMERIC}
+		SELECT <include refid="templateColumn"/> FROM T_CMS_BASE_TEMPLATE  WHERE ID = #{id,jdbcType=NUMERIC}
 	</select>
 	
 	<!-- 根据分页条件分页查询用户信息 -->
 	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultMap="templateMap">
 		SELECT T.ID id,T.NAME name,T.TYPE type,T.PATH path,T.STATUS status,
-		T.INTRODUCTION introduction FROM T_BASE_TEMPLATE T
+		T.INTRODUCTION introduction FROM T_CMS_BASE_TEMPLATE T
 		<where>
 			<if test="params.name != null and params.name != '' ">
 		         T.NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')

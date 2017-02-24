@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlp.cms.dao.base.ArticleDao">
+	<sql id="articleColumn">
+		<![CDATA[
+		    ID id,
+			CREATE_TIME createTime,
+			UPDATE_TIME updateTime,
+		    CREATE_BY createBy,
+		    UPDATE_BY updateBy,
+            TITLE title,
+            SUB_TITLE subTitle,
+            REFER_NAME referName,
+            URL url,
+            ARTICLE_SOURCE articleSource,
+            AUTHOR author,
+            TAG_VALUE tagValue,
+            META_KEYWORD metaKeyword,
+            INTRODUCTION introduction,
+            CONTENT content,
+            PUBLISH_TIME publishTime,
+            CHECK_TIME checkTime,
+            TYPE type,
+            IS_REFER isRefer,
+            LOGIC_STATUS logicStatus,
+            SORT sort,
+            NEED_LOGIN needLogin,
+            CAN_DISCUSS canDiscuss,
+            NEED_CHECK needCheck,
+            STATUS status,
+            VIEW_NUM viewNum,
+            CATALOG_ID catalogId,
+            SITE_ID siteId
+              ]]>
+	</sql>
+
+	<!--新增Article-->
+	<insert id="saveArticle" parameterType="Article" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO T_CMS_BASE_ARTICLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			CREATE_TIME,UPDATE_TIME,
+			<if test="createBy != null and createBy != ''">
+				CREATE_BY,
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY,
+			</if>
+            <if test="title != null and title !=''">
+                TITLE,
+            </if>
+            <if test="subTitle != null and subTitle !=''">
+                SUB_TITLE,
+            </if>
+            <if test="referName != null and referName !=''">
+                REFER_NAME,
+            </if>
+            <if test="url != null and url !=''">
+                URL,
+            </if>
+            <if test="articleSource != null and articleSource !=''">
+                ARTICLE_SOURCE,
+            </if>
+            <if test="author != null and author !=''">
+                AUTHOR,
+            </if>
+            <if test="tagValue != null and tagValue !=''">
+                TAG_VALUE,
+            </if>
+            <if test="metaKeyword != null and metaKeyword !=''">
+                META_KEYWORD,
+            </if>
+            <if test="introduction != null and introduction !=''">
+                INTRODUCTION,
+            </if>
+            <if test="content != null and content !=''">
+                CONTENT,
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME,
+            </if>
+            <if test="checkTime != null">
+                CHECK_TIME,
+            </if>
+            <if test="type != null">
+                TYPE,
+            </if>
+            <if test="isRefer != null">
+                IS_REFER,
+            </if>
+            <if test="logicStatus != null">
+                LOGIC_STATUS,
+            </if>
+            <if test="sort != null">
+                SORT,
+            </if>
+            <if test="needLogin != null">
+                NEED_LOGIN,
+            </if>
+            <if test="canDiscuss != null">
+                CAN_DISCUSS,
+            </if>
+            <if test="needCheck != null">
+                NEED_CHECK,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="viewNum != null">
+                VIEW_NUM,
+            </if>
+            <if test="catalogId != null">
+                CATALOG_ID,
+            </if>
+            <if test="siteId != null">
+                SITE_ID,
+            </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			NOW(),NOW(),
+			<if test="createBy != null and createBy != ''">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+            <if test="title != null and title !=''">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null and subTitle !=''">
+                #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="referName != null and referName !=''">
+                #{referName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url !=''">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="articleSource != null and articleSource !=''">
+                #{articleSource,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null and author !=''">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="tagValue != null and tagValue !=''">
+                #{tagValue,jdbcType=VARCHAR},
+            </if>
+            <if test="metaKeyword != null and metaKeyword !=''">
+                #{metaKeyword,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null and introduction !=''">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content !=''">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=NUMERIC},
+            </if>
+            <if test="isRefer != null">
+                #{isRefer,jdbcType=NUMERIC},
+            </if>
+            <if test="logicStatus != null">
+                #{logicStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=NUMERIC},
+            </if>
+            <if test="needLogin != null">
+                #{needLogin,jdbcType=NUMERIC},
+            </if>
+            <if test="canDiscuss != null">
+                #{canDiscuss,jdbcType=NUMERIC},
+            </if>
+            <if test="needCheck != null">
+                #{needCheck,jdbcType=NUMERIC},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=NUMERIC},
+            </if>
+            <if test="viewNum != null">
+                #{viewNum,jdbcType=NUMERIC},
+            </if>
+            <if test="catalogId != null">
+                #{catalogId,jdbcType=NUMERIC},
+            </if>
+            <if test="siteId != null">
+                #{siteId,jdbcType=NUMERIC},
+            </if>
+		</trim>
+	</insert>
+
+	<!-- 删除Article -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM T_CMS_BASE_ARTICLE WHERE ID=#{id,jdbcType=NUMERIC}
+	</delete>
+
+	<!--更新Article -->
+	<update id="updateArticle" parameterType="Article">
+		UPDATE T_CMS_BASE_ARTICLE
+		<set>
+			UPDATE_TIME = NOW(),
+			<if test="updateBy != null and updateBy != ''">
+				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+			</if>
+            <if test="title != null and title !=''">
+                TITLE = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subTitle != null and subTitle !=''">
+                SUB_TITLE = #{subTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="referName != null and referName !=''">
+                REFER_NAME = #{referName,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url !=''">
+                URL = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="articleSource != null and articleSource !=''">
+                ARTICLE_SOURCE = #{articleSource,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null and author !=''">
+                AUTHOR = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="tagValue != null and tagValue !=''">
+                TAG_VALUE = #{tagValue,jdbcType=VARCHAR},
+            </if>
+            <if test="metaKeyword != null and metaKeyword !=''">
+                META_KEYWORD = #{metaKeyword,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null and introduction !=''">
+                INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null and content !=''">
+                CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTime != null">
+                PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkTime != null">
+                CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                TYPE = #{type,jdbcType=NUMERIC},
+            </if>
+            <if test="isRefer != null">
+                IS_REFER = #{isRefer,jdbcType=NUMERIC},
+            </if>
+            <if test="logicStatus != null">
+                LOGIC_STATUS = #{logicStatus,jdbcType=NUMERIC},
+            </if>
+            <if test="sort != null">
+                SORT = #{sort,jdbcType=NUMERIC},
+            </if>
+            <if test="needLogin != null">
+                NEED_LOGIN = #{needLogin,jdbcType=NUMERIC},
+            </if>
+            <if test="canDiscuss != null">
+                CAN_DISCUSS = #{canDiscuss,jdbcType=NUMERIC},
+            </if>
+            <if test="needCheck != null">
+                NEED_CHECK = #{needCheck,jdbcType=NUMERIC},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=NUMERIC},
+            </if>
+            <if test="viewNum != null">
+                VIEW_NUM = #{viewNum,jdbcType=NUMERIC},
+            </if>
+            <if test="catalogId != null">
+                CATALOG_ID = #{catalogId,jdbcType=NUMERIC},
+            </if>
+            <if test="siteId != null">
+                SITE_ID = #{siteId,jdbcType=NUMERIC},
+            </if>
+		</set>
+		WHERE ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 根据主键id查询Article -->
+	<select id="queryById" parameterType="java.lang.Long" resultType="Article">
+		SELECT <include refid="articleColumn"/> FROM T_CMS_BASE_ARTICLE WHERE ID = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 根据分页条件分页查询Article信息 -->
+	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Article">
+		SELECT <include refid="articleColumn"/> FROM T_CMS_BASE_ARTICLE T
+		<where>
+			<if test="params.name != null and params.name != '' ">
+		         T.NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
+		    </if>
+		</where>
+	</select>
+</mapper>

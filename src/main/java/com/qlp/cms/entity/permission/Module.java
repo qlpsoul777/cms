@@ -2,6 +2,11 @@ package com.qlp.cms.entity.permission;
 
 import com.qlp.core.entity.IdEntity;
 
+/**
+ * 权限资源实体(T_CMS_PERMISSION_MODULE)
+ * @author qlp
+ *
+ */
 public class Module extends IdEntity {
 
 	private static final long serialVersionUID = 4384247145152144557L;

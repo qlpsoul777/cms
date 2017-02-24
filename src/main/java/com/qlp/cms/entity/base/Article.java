@@ -4,6 +4,11 @@ import java.util.Date;
 
 import com.qlp.core.entity.IdEntity;
 
+/**
+ * 新闻实体(T_CMS_BASE_ARTICLE)
+ * @author qlp
+ *
+ */
 public class Article extends IdEntity {
 
 	private static final long serialVersionUID = -1213034903356315788L;
@@ -26,7 +31,8 @@ public class Article extends IdEntity {
 	private Integer isRefer;			//是否指定名称(0:不需要，1:需要)
 	private Integer logicStatus;		//逻辑状态(0:无效/已删除,1:有效)
 	private Integer sort;				//排序字段
-	private Integer needDiscuss;		//是否允许评论(0:禁止，1:允许)
+	private Integer needLogin;			//是否需要登录(0:不需要，1:需要)
+	private Integer canDiscuss;			//是否允许评论(0:禁止，1:允许)
 	private Integer needCheck;			//是否需要审核：(0:不需要，1:需要)
 	private Integer status;				//文章状态(待提交，待审核，驳回，待发布，已发布)
 	
@@ -134,11 +140,17 @@ public class Article extends IdEntity {
 	public void setSort(Integer sort) {
 		this.sort = sort;
 	}
-	public Integer getNeedDiscuss() {
-		return needDiscuss;
+	public Integer getNeedLogin() {
+		return needLogin;
 	}
-	public void setNeedDiscuss(Integer needDiscuss) {
-		this.needDiscuss = needDiscuss;
+	public void setNeedLogin(Integer needLogin) {
+		this.needLogin = needLogin;
+	}
+	public Integer getCanDiscuss() {
+		return canDiscuss;
+	}
+	public void setCanDiscuss(Integer canDiscuss) {
+		this.canDiscuss = canDiscuss;
 	}
 	public Integer getNeedCheck() {
 		return needCheck;
