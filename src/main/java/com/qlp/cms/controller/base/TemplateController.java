@@ -33,8 +33,6 @@ public class TemplateController {
 	@PageRequestParam
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request,@ModelAttribute Template template,Long catalogId){
-		template.setCatalogId(catalogId);
-		
 		Pageable<Template> pageable =  (Pageable<Template>) request.getAttribute("pageable");
 		Page<Template> pageInfo = templateService.queryPage(pageable);
 		request.setAttribute("pageInfo", pageInfo);
@@ -48,6 +46,7 @@ public class TemplateController {
 			@RequestParam(value = "catalogId", required = true) Long catalogId){
 		Template template = templateService.newIfNotFound(id);
 		template.setCatalogId(catalogId);
+		
 		request.setAttribute("template", template);
 		request.setAttribute("statuss", StatusEnum.values());
 		request.setAttribute("types", TemplateTypeEnum.values());

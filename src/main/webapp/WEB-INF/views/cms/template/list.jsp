@@ -33,7 +33,7 @@
 	                            <div class="form-group">
 	                                <div class="input-group">
 	                                    <div class="input-group-addon">模板名称</div>
-	                                    <input class="form-control" type="text" id="name" name="name" value="${site.name }">
+	                                    <input class="form-control" type="text" id="name" name="name" value="${template.name }">
 	                                </div>
 	                            </div>
 	                            <button type="submit" class="btn btn-default">查询</button>

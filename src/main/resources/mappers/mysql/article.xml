@@ -291,9 +291,13 @@
 	<select id="queryPageList" parameterType="com.qlp.core.page.Pageable" resultType="Article">
 		SELECT <include refid="articleColumn"/> FROM T_CMS_BASE_ARTICLE T
 		<where>
-			<if test="params.name != null and params.name != '' ">
-		         T.NAME LIKE concat('%',#{params.name,jdbcType=VARCHAR},'%')
+			<if test="params.title != null and params.title != '' ">
+		         T.NAME LIKE concat('%',#{params.title,jdbcType=VARCHAR},'%')
+		    </if>
+		    <if test="params.catalogId != null">
+		         T.CATALOG_ID = #{params.catalogId,jdbcType=NUMERIC}
 		    </if>
 		</where>
+		ORDER BY T.STATUS DESC,T.SORT ASC
 	</select>
 </mapper>

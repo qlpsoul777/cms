@@ -25,7 +25,7 @@
                 <div class="panel-body">
                     <div class="row search-content">
                     	<div class="col-xs-8">
-	                        <form id="queryForm" class="form-inline" action="${ctx }/template/list">
+	                        <form id="queryForm" class="form-inline" action="${ctx }/article/list">
 	                        	<input id="catalogId" type="hidden" name="catalogId" value="${catalogId}"/>
 	                        	<input id="totalSize" type="hidden" name="totalSize" value="${pageInfo.totalPage}"/>
 			  					<input id="pageSize" type="hidden" name="pageSize" value="${pageInfo.pageSize }"/>
@@ -33,7 +33,7 @@
 	                            <div class="form-group">
 	                                <div class="input-group">
 	                                    <div class="input-group-addon">模板名称</div>
-	                                    <input class="form-control" type="text" id="name" name="name" value="${site.name }">
+	                                    <input class="form-control" type="text" id="title" name="title" value="${article.title }">
 	                                </div>
 	                            </div>
 	                            <button type="submit" class="btn btn-default">查询</button>
